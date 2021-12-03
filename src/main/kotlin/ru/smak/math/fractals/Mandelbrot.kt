@@ -54,6 +54,6 @@ class Mandelbrot : AlgebraicFractal{
             z = z * z + c
             if (z.mod2 > R2) return i.toDouble() / maxIterations
         }
-        return if (colorizedSet) z.mod.toDouble() else 1.0
+        return if (colorizedSet) z.mod else 1.0
     }
 }
