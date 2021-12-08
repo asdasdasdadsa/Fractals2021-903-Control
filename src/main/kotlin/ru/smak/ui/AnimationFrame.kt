@@ -22,9 +22,9 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
         frameScrollPanel = JPanel().apply {
             background = Color.GREEN
         }
-        frameScroll = JScrollPane(frameScrollPanel).apply {
-
+        frameScroll = JScrollPane(frameScrollPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER).apply {
         }
+
         ctrlPanel = JPanel().apply {
             background = Color.WHITE
         }
@@ -54,8 +54,8 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                     .addGroup(
                         createParallelGroup(GroupLayout.Alignment.CENTER)
                             .addComponent(animLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
-                            .addGap(50)
-                            .addComponent(frameScrollPanel, 250, 250, 250)
+                            .addGap(30)
+                            .addComponent(frameScroll, 250, 250, 250)
                     )
                     .addGap(50)
             )
@@ -63,8 +63,8 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                 createSequentialGroup()
                     .addGap(15)
                     .addComponent(animLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
-                    .addGap(50)
-                    .addComponent(frameScrollPanel, 300, GroupLayout.PREFERRED_SIZE , GroupLayout.PREFERRED_SIZE)
+                    .addGap(30)
+                    .addComponent(frameScroll, 300, GroupLayout.PREFERRED_SIZE , GroupLayout.PREFERRED_SIZE)
                     .addGap(30, 30 , Int.MAX_VALUE)
             )
         }
