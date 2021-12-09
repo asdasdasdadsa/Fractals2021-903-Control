@@ -6,5 +6,6 @@ fun main(args: Array<String>) {
     MainFrame().apply {
         isVisible = true
     }
+    val a = 0
 }
 
