@@ -4,9 +4,7 @@ import ru.smak.ui.GraphicsPanel
 import java.awt.Color
 import java.awt.Point
 import java.awt.Rectangle
-import java.awt.event.MouseAdapter
-import java.awt.event.MouseEvent
-import java.awt.event.MouseMotionAdapter
+import java.awt.event.*
 import kotlin.math.abs
 import kotlin.math.min
 
@@ -14,6 +12,8 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
 
     private var pt1: Point? = null
     private var pt2: Point? = null
+
+    private val stat = mutableListOf(Rectangle(0,0,width,height))
 
     private val selectListener: MutableList<(Rectangle)->Unit> = mutableListOf()
 
@@ -25,9 +25,25 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
         selectListener.remove(l)
     }
 
-    init {
-        addMouseListener(object : MouseAdapter(){
 
+    init {
+
+    /*    addKeyListener(object : KeyListener{
+            override fun keyTyped(e: KeyEvent?) {
+
+            }
+
+            override fun keyPressed(e: KeyEvent?) {
+
+            }
+
+            override fun keyReleased(e: KeyEvent?) {
+
+            }
+        })      */
+
+
+        addMouseListener(object : MouseAdapter(){
             override fun mousePressed(e: MouseEvent?) {
                 graphics.apply {
                     setXORMode(Color.WHITE)
@@ -41,6 +57,9 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
                 pt1?.let { p1 ->
                     pt2?.let { p2->
                         val r = Rectangle(min(p1.x,p2.x),min(p1.y,p2.y), abs(p2.x - p1.x),abs(p2.y-p1.y))
+
+                        stat.add(r)
+
                         selectListener.forEach { it(r) }
                     }
                 }
@@ -48,6 +67,13 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
                 pt2 = null
             }
 
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+                e?.let {
+                    stat.removeAt(stat.size-1)
+                    selectListener.forEach { it(stat[stat.size-1]) }
+                }
+            }
         })
 
         addMouseMotionListener(object : MouseMotionAdapter(){
@@ -66,7 +92,6 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
                     setPaintMode()
                 }
             }
-
         })
     }
 }

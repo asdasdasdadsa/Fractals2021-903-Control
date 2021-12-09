@@ -7,6 +7,8 @@ import ru.smak.ui.painting.fractals.FractalPainter
 import ru.smak.ui.painting.fractals.colorizers
 import java.awt.Color
 import java.awt.Dimension
+import java.awt.event.KeyEvent
+import java.awt.event.KeyListener
 import javax.swing.GroupLayout
 import javax.swing.JFrame
 import kotlin.random.Random
@@ -37,7 +39,7 @@ class MainFrame : JFrame() {
                 repaint()
             }
         }
-        
+
         layout = GroupLayout(contentPane).apply {
             setHorizontalGroup(
                 createSequentialGroup()
