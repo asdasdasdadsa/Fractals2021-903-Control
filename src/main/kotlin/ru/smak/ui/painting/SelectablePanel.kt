@@ -28,7 +28,7 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
 
     init {
 
-    /*    addKeyListener(object : KeyListener{
+        addKeyListener(object : KeyListener{
             override fun keyTyped(e: KeyEvent?) {
 
             }
@@ -40,7 +40,7 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
             override fun keyReleased(e: KeyEvent?) {
 
             }
-        })      */
+        })
 
 
         addMouseListener(object : MouseAdapter(){
