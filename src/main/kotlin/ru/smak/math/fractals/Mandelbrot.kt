@@ -48,6 +48,11 @@ class Mandelbrot : AlgebraicFractal{
      * либо величина модуля полученного в ходе итераций комплексного числа в случае colorizeDSet = true
      * @see colorizedSet
      */
+
+    fun changeIterations(){
+        maxIterations *= 2
+    }
+
     override fun isInSet(c: Complex): Double {
         var z = ZERO
         for(i in 0 until maxIterations){
