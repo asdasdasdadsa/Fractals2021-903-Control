@@ -7,8 +7,11 @@ import ru.smak.ui.painting.fractals.FractalPainter
 import ru.smak.ui.painting.fractals.colorizers
 import java.awt.Color
 import java.awt.Dimension
+import java.awt.Rectangle
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
+import java.awt.event.MouseAdapter
+import java.awt.event.MouseEvent
 import javax.swing.GroupLayout
 import javax.swing.JFrame
 import kotlin.random.Random
@@ -16,6 +19,8 @@ import kotlin.random.Random
 class MainFrame : JFrame() {
 
     val fractalPanel: SelectablePanel
+
+    val stat = mutableListOf(Pair(Pair(-2.0,1.0),Pair(-1.0,1.0)) )
 
     init{
         defaultCloseOperation = EXIT_ON_CLOSE
@@ -35,10 +40,27 @@ class MainFrame : JFrame() {
                     val yMax = yScr2Crt(it.y + it.height)
                     xSegment = Pair(xMin, xMax)
                     ySegment = Pair(yMin, yMax)
+
+                    stat.add(Pair(Pair(xMin,xMax),Pair(yMin,yMax)))
                 }
                 repaint()
             }
         }
+
+        fractalPanel.addMouseListener(object : MouseAdapter() {
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+                e?.let {
+                    if(stat.size!=1)
+                        stat.removeAt(stat.size-1)
+                    with (painter.plane){
+                        xSegment = stat[stat.size-1].first
+                        ySegment = stat[stat.size-1].second
+                    }
+                }
+                repaint()
+            }
+        })
 
         layout = GroupLayout(contentPane).apply {
             setHorizontalGroup(

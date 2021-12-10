@@ -67,13 +67,14 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
                 pt2 = null
             }
 
-            override fun mouseClicked(e: MouseEvent?) {
+/*            override fun mouseClicked(e: MouseEvent?) {
                 super.mouseClicked(e)
                 e?.let {
-                    stat.removeAt(stat.size-1)
+                    if(stat.size!=1)
+                        stat.removeAt(stat.size-1)
                     selectListener.forEach { it(stat[stat.size-1]) }
                 }
-            }
+            }           */
         })
 
         addMouseMotionListener(object : MouseMotionAdapter(){
