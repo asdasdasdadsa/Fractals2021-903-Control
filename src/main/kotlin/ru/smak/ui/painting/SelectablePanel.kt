@@ -2,6 +2,7 @@ package ru.smak.ui.painting
 
 import ru.smak.math.fractals.Mandelbrot
 import ru.smak.ui.GraphicsPanel
+import ru.smak.ui.painting.fractals.FractalPainter
 import java.awt.Color
 import java.awt.Point
 import java.awt.Rectangle
@@ -39,7 +40,6 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
             }
 
             override fun mouseReleased(e: MouseEvent?) {
-                Mandelbrot().changeIterations()
                 pt1?.let { p1 ->
                     pt2?.let { p2->
                         val r = Rectangle(min(p1.x,p2.x),min(p1.y,p2.y), abs(p2.x - p1.x),abs(p2.y-p1.y))

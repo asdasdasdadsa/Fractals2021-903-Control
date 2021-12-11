@@ -49,7 +49,7 @@ class Mandelbrot : AlgebraicFractal{
      * @see colorizedSet
      */
 
-    fun changeIterations(){
+    fun changeIterations() {
         maxIterations *= 2
     }
 
