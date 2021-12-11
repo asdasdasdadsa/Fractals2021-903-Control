@@ -20,7 +20,6 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
     private val selectListener: MutableList<(Rectangle)->Unit> = mutableListOf()
 
 
-
     fun addSelectListener(l: (Rectangle)->Unit){
         selectListener.add(l)
     }
