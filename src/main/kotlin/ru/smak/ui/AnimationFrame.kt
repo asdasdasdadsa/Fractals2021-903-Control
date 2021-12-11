@@ -15,13 +15,13 @@ import javax.swing.*
 class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
     val ctrlPanel : JPanel
     val animLabel : JLabel
-    //val frameScroll : JScrollPane
+    val frameScroll : JScrollPane
     val keyFramesPanel : JPanel
     val addKeyFrame : JButton
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
         title = "Экскурсия"
-        minimumSize = Dimension(1000, 500)
+        minimumSize = Dimension(1200, 700)
         val keyFrames = arrayListOf<JPanel>()
 
         animLabel = JLabel().apply {
@@ -32,8 +32,8 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
             background = Color.GRAY
         }
 
-      //   frameScroll = JScrollPane(keyFramesPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER).apply {
-      //  }
+        frameScroll = JScrollPane(keyFramesPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER).apply {
+        }
         addKeyFrame = JButton().apply {
             text = "Добавить ключевой кадр"
         }
@@ -43,8 +43,11 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                 val img = BufferedImage(selectablePanel.width, selectablePanel.height, BufferedImage.TYPE_INT_RGB)
                 val imgGr = img.createGraphics()
                 selectablePanel.paint(imgGr)
-                val keyFrame = KeyFramePanel(0, ImagePainter(img, Dimension(250, 150)))
-                keyFramesPanel.add(keyFrame)
+                val keyFrame = KeyFramePanel(keyFrames.lastIndex,
+                    ImagePainter(img, Dimension(300-frameScroll.verticalScrollBar.width, 100)))
+                frameScroll.add(keyFrame)
+                keyFrames.add(keyFrame)
+                frameScroll.revalidate()
             }
         })
         ctrlPanel = JPanel().apply {
@@ -77,7 +80,7 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                         createParallelGroup(GroupLayout.Alignment.CENTER)
                             .addComponent(animLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                             .addGap(30)
-                            .addComponent(keyFramesPanel, 250, 250, 250)
+                            .addComponent(frameScroll, 300, 300, 300)
                             .addGap(10)
                             .addComponent(addKeyFrame, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
                     )
@@ -88,7 +91,7 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                     .addGap(15)
                     .addComponent(animLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                     .addGap(30)
-                    .addComponent(keyFramesPanel, 300, GroupLayout.PREFERRED_SIZE , GroupLayout.PREFERRED_SIZE)
+                    .addComponent(frameScroll, 400, 400 , 400)
                     .addGap(10)
                     .addComponent(addKeyFrame, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addGap(30, 30 , Int.MAX_VALUE)
