@@ -19,6 +19,12 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
 
     private val selectListener: MutableList<(Rectangle)->Unit> = mutableListOf()
 
+    private val mandelbrotListener: MutableList<(Unit)->Unit> = mutableListOf()
+
+    fun addMandelbrotListener(l: (Unit)->Unit){
+        mandelbrotListener.add(l)
+    }
+
     fun addSelectListener(l: (Rectangle)->Unit){
         selectListener.add(l)
     }
