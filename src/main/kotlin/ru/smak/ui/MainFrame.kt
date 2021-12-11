@@ -36,12 +36,10 @@ class MainFrame : JFrame() {
                     xSegment = Pair(xMin, xMax)
                     ySegment = Pair(yMin, yMax)
                 }
+                mand.changeIterations()
                 repaint()
             }
 
-            addMandelbrotListener {
-                mand.changeIterations()
-            }
         }
         
         layout = GroupLayout(contentPane).apply {

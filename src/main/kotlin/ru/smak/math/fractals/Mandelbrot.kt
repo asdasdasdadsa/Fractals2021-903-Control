@@ -10,7 +10,7 @@ class Mandelbrot : AlgebraicFractal{
      * Количество итераций, которые необходимы для проверки принедлежности
      * точки множеству Мандельброта
      */
-    var maxIterations = 1
+    var maxIterations = 10
 
     /**
      * Квадрат радиуса принадлежности
@@ -50,7 +50,7 @@ class Mandelbrot : AlgebraicFractal{
      */
 
     fun changeIterations() {
-        maxIterations *= 2
+        maxIterations *= 10
     }
 
     override fun isInSet(c: Complex): Double {
