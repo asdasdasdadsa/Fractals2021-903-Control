@@ -19,9 +19,9 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
 
     private val selectListener: MutableList<(Rectangle)->Unit> = mutableListOf()
 
-    private val mandelbrotListener: MutableList<(Unit)->Unit> = mutableListOf()
+    private val mandelbrotListener: MutableList<(Mandelbrot)->Unit> = mutableListOf()
 
-    fun addMandelbrotListener(l: (Unit)->Unit){
+    fun addMandelbrotListener(l: (Mandelbrot)->Unit){
         mandelbrotListener.add(l)
     }
 
@@ -46,6 +46,7 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
             }
 
             override fun mouseReleased(e: MouseEvent?) {
+                //mandelbrotListener()
                 pt1?.let { p1 ->
                     pt2?.let { p2->
                         val r = Rectangle(min(p1.x,p2.x),min(p1.y,p2.y), abs(p2.x - p1.x),abs(p2.y-p1.y))
