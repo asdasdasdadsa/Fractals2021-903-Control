@@ -3,6 +3,7 @@ package ru.smak.math.fractals
 import org.kotlinmath.Complex
 import org.kotlinmath.ZERO
 import ru.smak.math.mod2
+import kotlin.math.absoluteValue
 
 class Mandelbrot : AlgebraicFractal{
 
@@ -49,8 +50,9 @@ class Mandelbrot : AlgebraicFractal{
      * @see colorizedSet
      */
 
-    fun changeIterations() {
-        maxIterations *= 10
+    fun changeIterations(X1: Double, X2: Double, Y1: Double, Y2: Double, xMin: Double, yMin: Double, xMax: Double, yMax: Double) {
+        val c = (((X2 - X1) * (Y2 - Y1)) * 1.0 / ((xMax - xMin) * (yMax - yMin))).absoluteValue
+        maxIterations *= c.toInt()
     }
 
     override fun isInSet(c: Complex): Double {

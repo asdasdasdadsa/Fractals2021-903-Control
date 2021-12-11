@@ -33,10 +33,10 @@ class MainFrame : JFrame() {
                     val yMin = yScr2Crt(it.y)
                     val xMax = xScr2Crt(it.x + it.width)
                     val yMax = yScr2Crt(it.y + it.height)
+                    mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
                     xSegment = Pair(xMin, xMax)
                     ySegment = Pair(yMin, yMax)
                 }
-                mand.changeIterations()
                 repaint()
             }
 
