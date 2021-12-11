@@ -67,6 +67,8 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
                 }
             }
 
-        })
+
+
+         })
     }
 }

@@ -57,14 +57,14 @@ class MainFrame : JFrame() {
                 createSequentialGroup()
                     .addGap(4)
                     .addComponent(fractalPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
-                    .addComponent(openAnimFrame, 100, 100, 100)
+                    .addComponent(openAnimFrame, 100, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addGap(4)
             )
             setVerticalGroup(
                 createSequentialGroup()
                     .addGap(4)
                     .addComponent(fractalPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
-                    .addComponent(openAnimFrame, 100, 100, 100)
+                    .addComponent(openAnimFrame, 30, 30, 30)
                     .addGap(4)
             )
         }
