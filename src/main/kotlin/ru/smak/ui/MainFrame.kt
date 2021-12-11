@@ -24,6 +24,7 @@ class MainFrame : JFrame() {
             CartesianPlane(-2.0, 1.0, -1.0, 1.0),
             colorizers[Random.nextInt(colorizers.size)])
 
+
         fractalPanel = SelectablePanel(painter).apply {
             background = Color.WHITE
             addSelectListener{
@@ -36,6 +37,10 @@ class MainFrame : JFrame() {
                     ySegment = Pair(yMin, yMax)
                 }
                 repaint()
+            }
+
+            addMandelbrotListener {
+                mand.changeIterations()
             }
         }
         
