@@ -2,10 +2,13 @@ package ru.smak.ui
 
 import ru.smak.ui.painting.ImagePainter
 import ru.smak.ui.painting.KeyFramePanel
+import ru.smak.ui.painting.KeyFramesPanel
 import ru.smak.ui.painting.SelectablePanel
 import java.awt.Color
 import java.awt.Dimension
 import java.awt.Image
+import java.awt.event.ComponentAdapter
+import java.awt.event.ComponentEvent
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.awt.image.BufferedImage
@@ -22,18 +25,17 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
         defaultCloseOperation = EXIT_ON_CLOSE
         title = "Экскурсия"
         minimumSize = Dimension(1200, 700)
-        val keyFrames = arrayListOf<JPanel>()
-
         animLabel = JLabel().apply {
             text = "Создание анимации"
             font = getFont().deriveFont(16.0f)
         }
-        keyFramesPanel = JPanel().apply {
+        keyFramesPanel = KeyFramesPanel().apply {
             background = Color.GRAY
         }
-
         frameScroll = JScrollPane(keyFramesPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER).apply {
         }
+
+
         addKeyFrame = JButton().apply {
             text = "Добавить ключевой кадр"
         }
@@ -43,18 +45,28 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                 val img = BufferedImage(selectablePanel.width, selectablePanel.height, BufferedImage.TYPE_INT_RGB)
                 val imgGr = img.createGraphics()
                 selectablePanel.paint(imgGr)
-                val frameIndex = if (keyFrames.isEmpty()) 0 else keyFrames.lastIndex + 1
-                val keyFrame = KeyFramePanel(frameIndex,
-                    ImagePainter(img, Dimension(300-frameScroll.verticalScrollBar.width, 100)))
-                frameScroll.add(keyFrame)
-                keyFrames.add(keyFrame)
-                frameScroll.revalidate()
+                with(keyFramesPanel.KFsize) {
+                    val keyFrame = KeyFramePanel(
+                        ImagePainter(
+                            img,
+                            Dimension(width - frameScroll.verticalScrollBar.width  , height)
+                        )
+                    )
+                    keyFramesPanel.addKeyFrame(keyFrame)
+                    if (keyFrame.y >= frameScroll.size.height) {
+                        frameScroll.preferredSize.height += keyFrame.size.height + keyFrame.Gap
+                        frameScroll.revalidate()
+                    }
+                    frameScroll.add(keyFrame)
+                }
+
             }
         })
         ctrlPanel = JPanel().apply {
             background = Color.WHITE
             border = BorderFactory.createLineBorder(Color.BLACK)
         }
+        //pack()
         layout = GroupLayout(contentPane).apply {
             setHorizontalGroup(
                 createSequentialGroup()
@@ -98,6 +110,7 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                     .addGap(30, 30 , Int.MAX_VALUE)
             )
         }
+
 
     }
 
