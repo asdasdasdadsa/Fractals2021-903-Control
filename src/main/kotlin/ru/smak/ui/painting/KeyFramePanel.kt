@@ -11,14 +11,15 @@ import javax.swing.JPanel
 
 class KeyFramePanel (private val indexOfFrame : Int, private val imagePainter: ImagePainter ) : GraphicsPanel(imagePainter){
 
-    val countOfFrames = 3
-
+    private val countOfFrames = 3
+    private val gap = 2
     init {
         addMouseListener(object : MouseAdapter() {
         })
         setSize(imagePainter.size)
         // Производим правильное размещение ключевого кадра, при его добавлении
-        setLocation(Point(0, imagePainter.size.height * indexOfFrame))
+        setLocation(Point(0, imagePainter.size.height * indexOfFrame + indexOfFrame * gap))
+
     }
 
 }

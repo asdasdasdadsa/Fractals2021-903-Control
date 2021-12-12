@@ -43,7 +43,8 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                 val img = BufferedImage(selectablePanel.width, selectablePanel.height, BufferedImage.TYPE_INT_RGB)
                 val imgGr = img.createGraphics()
                 selectablePanel.paint(imgGr)
-                val keyFrame = KeyFramePanel(keyFrames.lastIndex,
+                val frameIndex = if (keyFrames.isEmpty()) 0 else keyFrames.lastIndex + 1
+                val keyFrame = KeyFramePanel(frameIndex,
                     ImagePainter(img, Dimension(300-frameScroll.verticalScrollBar.width, 100)))
                 frameScroll.add(keyFrame)
                 keyFrames.add(keyFrame)
