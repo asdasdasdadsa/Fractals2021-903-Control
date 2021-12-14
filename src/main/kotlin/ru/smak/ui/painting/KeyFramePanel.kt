@@ -12,12 +12,7 @@ import javax.swing.JPanel
 class KeyFramePanel (private val imagePainter: ImagePainter ) : GraphicsPanel(imagePainter){
 
     private val countOfFrames = 3
-    //val Img : BufferedImage
-    val Gap : Int = 2
     init {
-        //Img = imagePainter.oldImg
-        addMouseListener(object : MouseAdapter() {
-        })
         setSize(imagePainter.size)
     }
 
