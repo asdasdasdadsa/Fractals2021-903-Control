@@ -35,7 +35,6 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
         frameScroll = JScrollPane(keyFramesPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER).apply {
         }
 
-
         addKeyFrame = JButton().apply {
             text = "Добавить ключевой кадр"
         }
@@ -45,7 +44,8 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                 val img = BufferedImage(selectablePanel.width, selectablePanel.height, BufferedImage.TYPE_INT_RGB)
                 val imgGr = img.createGraphics()
                 selectablePanel.paint(imgGr)
-                with(keyFramesPanel.KFsize) {
+                keyFramesPanel.addKeyFrame(img)
+               /* with(keyFramesPanel.KFsize) {
                     val keyFrame = KeyFramePanel(
                         ImagePainter(
                             img,
@@ -58,15 +58,13 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                         frameScroll.revalidate()
                     }
                     frameScroll.add(keyFrame)
-                }
-
+                }*/
             }
         })
         ctrlPanel = JPanel().apply {
             background = Color.WHITE
             border = BorderFactory.createLineBorder(Color.BLACK)
         }
-        //pack()
         layout = GroupLayout(contentPane).apply {
             setHorizontalGroup(
                 createSequentialGroup()
