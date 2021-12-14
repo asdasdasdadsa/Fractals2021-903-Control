@@ -16,16 +16,18 @@ import javax.swing.GroupLayout
 import javax.swing.JFrame
 import kotlin.random.Random
 
+
 class SecondFrame : JFrame() {
 
     val fractalPanel: SelectablePanel
 
+
     init{
-        defaultCloseOperation = EXIT_ON_CLOSE
+       // defaultCloseOperation = EXIT_ON_CLOSE
         minimumSize = Dimension(600, 400)
         val painter = FractalPainter(
             Julia(),
-            CartesianPlane(-2.0, 1.5, -1.5, 2.0),
+            CartesianPlane(-1.0, 1.0, -1.0, 1.0),
             colorizers[Random.nextInt(colorizers.size)])
 
         fractalPanel = SelectablePanel(painter).apply {
@@ -42,13 +44,7 @@ class SecondFrame : JFrame() {
                 repaint()
             }
         }
-        fractalPanel.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
 
-
-            }
-        })
 
         layout = GroupLayout(contentPane).apply {
             setHorizontalGroup(
