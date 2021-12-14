@@ -1,5 +1,6 @@
 package ru.smak.ui
 
+import ru.smak.math.fractals.Julia
 import ru.smak.math.fractals.Mandelbrot
 import ru.smak.ui.painting.CartesianPlane
 import ru.smak.ui.painting.SelectablePanel
@@ -44,6 +45,7 @@ class MainFrame : JFrame() {
             override fun mouseClicked(e: MouseEvent?) {
                 super.mouseClicked(e)
                 SecondFrame().apply {
+                    Julia.t=org.kotlinmath.DefaultComplex(painter.plane.xScr2Crt(e!!.x),painter.plane.yScr2Crt(e.y))
                     isVisible = true
                 }
 
