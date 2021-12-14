@@ -7,14 +7,10 @@ import ru.smak.ui.painting.fractals.FractalPainter
 import ru.smak.ui.painting.fractals.colorizers
 import java.awt.Color
 import java.awt.Dimension
-import java.awt.Rectangle
-import java.awt.event.KeyEvent
-import java.awt.event.KeyListener
-import java.awt.event.MouseAdapter
-import java.awt.event.MouseEvent
-import javax.swing.GroupLayout
-import javax.swing.JFrame
+import java.awt.event.*
+import javax.swing.*
 import kotlin.random.Random
+
 
 class MainFrame : JFrame() {
 
@@ -46,6 +42,44 @@ class MainFrame : JFrame() {
                 repaint()
             }
         }
+
+
+     /*   val action: AbstractAction = object : AbstractAction() {
+            override fun actionPerformed(e: ActionEvent) {
+                if (e.source is JButton) {
+                    val button = e.source as JButton
+                    button.doClick()
+                } else if (e.source is JComponent) {
+                    val component = e.source as JComponent
+                    component.transferFocus()
+                }
+            }
+        }
+*/
+
+     //   val button1 = JButton()
+    //    button1.getActionMap().put("foo", action);
+        //fractalPanel.getActionForKeyStroke()
+        //fractalPanel.getInputMap().put(KeyStroke.getKeyStroke(Character.valueOf('control A'), 0), "foo")
+        fractalPanel.getInputMap().put(KeyStroke.getKeyStroke("control A"),"foo")
+
+        fractalPanel.addKeyListener(object : KeyListener{
+            override fun keyTyped(e: KeyEvent?) {
+
+            }
+
+            override fun keyPressed(e: KeyEvent?) {
+                e?.let {
+                    if(e.keyChar=='z')
+                    println("asdasdasdasd")
+                }
+            }
+
+            override fun keyReleased(e: KeyEvent?) {
+
+            }
+        })
+
 
         fractalPanel.addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent?) {
