@@ -14,7 +14,7 @@ import javax.swing.GroupLayout
 import javax.swing.JFrame
 import kotlin.random.Random
 
-class MainFrame : JFrame() {
+class SecondFrame : JFrame() {
 
     val fractalPanel: SelectablePanel
 
@@ -43,13 +43,11 @@ class MainFrame : JFrame() {
         fractalPanel.addMouseListener(object: MouseAdapter(){
             override fun mouseClicked(e: MouseEvent?) {
                 super.mouseClicked(e)
-                MainFrame().apply {
-                    isVisible = true
-                }
+
 
             }
         })
-        
+
         layout = GroupLayout(contentPane).apply {
             setHorizontalGroup(
                 createSequentialGroup()
