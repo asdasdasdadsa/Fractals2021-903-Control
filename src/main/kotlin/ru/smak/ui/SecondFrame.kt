@@ -1,5 +1,7 @@
 package ru.smak.ui
 
+import org.kotlinmath.Complex
+import ru.smak.math.fractals.Julia
 import ru.smak.math.fractals.Mandelbrot
 import ru.smak.ui.painting.CartesianPlane
 import ru.smak.ui.painting.SelectablePanel
@@ -22,8 +24,8 @@ class SecondFrame : JFrame() {
         defaultCloseOperation = EXIT_ON_CLOSE
         minimumSize = Dimension(600, 400)
         val painter = FractalPainter(
-            Mandelbrot(),
-            CartesianPlane(-2.0, 1.0, -1.0, 1.0),
+            Julia(),
+            CartesianPlane(-2.0, 1.5, -1.5, 2.0),
             colorizers[Random.nextInt(colorizers.size)])
 
         fractalPanel = SelectablePanel(painter).apply {

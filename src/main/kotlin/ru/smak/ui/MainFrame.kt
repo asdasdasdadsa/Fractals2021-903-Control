@@ -43,7 +43,7 @@ class MainFrame : JFrame() {
         fractalPanel.addMouseListener(object: MouseAdapter(){
             override fun mouseClicked(e: MouseEvent?) {
                 super.mouseClicked(e)
-                MainFrame().apply {
+                SecondFrame().apply {
                     isVisible = true
                 }
 
