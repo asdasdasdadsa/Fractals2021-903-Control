@@ -7,14 +7,17 @@ import ru.smak.ui.painting.fractals.FractalPainter
 import ru.smak.ui.painting.fractals.colorizers
 import java.awt.Color
 import java.awt.Dimension
+import javax.swing.*
 import java.awt.event.*
 import javax.swing.*
 import kotlin.random.Random
 
-
 class MainFrame : JFrame() {
 
     val fractalPanel: SelectablePanel
+    var frame: JFrame //= null
+    val menu: JMenu
+    val menuBar: JMenuBar
 
     val stat = mutableListOf(Pair(Pair(-2.0,1.0),Pair(-1.0,1.0)) )
 
@@ -25,6 +28,16 @@ class MainFrame : JFrame() {
             Mandelbrot(),
             CartesianPlane(-2.0, 1.0, -1.0, 1.0),
             colorizers[Random.nextInt(colorizers.size)])
+
+        frame = JFrame()
+        menu = JMenu()
+        menuBar = JMenuBar()
+        //fractalPanel.setJMenuBar(menuBar)
+        menuBar.setBounds(0, 0, 350, 30)
+        val fileMenu = JMenu("Файл")
+        menuBar.add(fileMenu)
+        val loadMenu = JMenuItem("HP")
+        fileMenu.add(loadMenu)
 
         fractalPanel = SelectablePanel(painter).apply {
             background = Color.WHITE
@@ -72,11 +85,19 @@ class MainFrame : JFrame() {
             setHorizontalGroup(
                 createSequentialGroup()
                     .addGap(4)
-                    .addComponent(fractalPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                    .addGroup(
+                        createParallelGroup()
+                            .addComponent(menuBar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                            .addComponent(fractalPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                    )
                     .addGap(4)
+
             )
+
             setVerticalGroup(
                 createSequentialGroup()
+                    .addGap(4)
+                    .addComponent(menuBar, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addGap(4)
                     .addComponent(fractalPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                     .addGap(4)

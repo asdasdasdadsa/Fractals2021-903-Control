@@ -1,4 +1,3 @@
 package ru.smak.ui
 
-class RMenu {
-}
+class RMenu  {}
