@@ -19,7 +19,7 @@ class MainFrame : JFrame() {
         defaultCloseOperation = EXIT_ON_CLOSE
         minimumSize = Dimension(600, 400)
         val painter = FractalPainter(
-            Mandelbrot(),
+            Mandelbrot(2),
             CartesianPlane(-2.0, 1.0, -1.0, 1.0),
             colorizers[Random.nextInt(colorizers.size)])
 
