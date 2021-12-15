@@ -33,8 +33,14 @@ class MainFrame : JFrame() {
         menuBar.setBounds(0, 0, 350, 30)
         val fileMenu = JMenu("Файл")
         menuBar.add(fileMenu)
-        val loadMenu = JMenuItem("HP")
+        val loadMenu = JMenuItem("Загрузить")
         fileMenu.add(loadMenu)
+        val SourceAreaMenu = JMenuItem("Исходная область")
+        fileMenu.add(SourceAreaMenu)
+        val OpenMenu = JMenuItem("Открыть...")
+        fileMenu.add(OpenMenu)
+        val SaveMenu = JMenuItem("Сохранить как")
+        fileMenu.add(SaveMenu)
 
         fractalPanel = SelectablePanel(painter).apply {
             background = Color.WHITE
