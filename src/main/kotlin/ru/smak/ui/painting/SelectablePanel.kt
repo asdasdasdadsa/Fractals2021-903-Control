@@ -16,9 +16,14 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
     private var pt2: Point? = null
 
     private val selectListener: MutableList<(Rectangle)->Unit> = mutableListOf()
+    private val moveListener: MutableList<(Pair<Int, Int>)->Unit> = mutableListOf()
 
     fun addSelectListener(l: (Rectangle)->Unit){
         selectListener.add(l)
+    }
+
+    fun addMoveListener(l: (Pair<Int, Int>)->Unit){
+        moveListener.add(l)
     }
 
     fun removeSelectListener(l: (Rectangle)->Unit){
@@ -40,8 +45,16 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
             override fun mouseReleased(e: MouseEvent?) {
                 pt1?.let { p1 ->
                     pt2?.let { p2->
-                        val r = Rectangle(min(p1.x,p2.x),min(p1.y,p2.y), abs(p2.x - p1.x),abs(p2.y-p1.y))
-                        selectListener.forEach { it(r) }
+                        e?.let {
+                            if(e.button == 3) {
+                                val r = Pair((p2.x - p1.x),(p2.y-p1.y))
+                                moveListener.forEach { it(r) }
+                            }
+                            if(e.button == 1) {
+                                val r = Rectangle(min(p1.x,p2.x),min(p1.y,p2.y), abs(p2.x - p1.x),abs(p2.y-p1.y))
+                                selectListener.forEach { it(r) }
+                            }
+                        }
                     }
                 }
                 pt1 = null

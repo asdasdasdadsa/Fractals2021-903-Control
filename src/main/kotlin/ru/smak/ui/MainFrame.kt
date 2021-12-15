@@ -36,6 +36,17 @@ class MainFrame : JFrame() {
                 }
                 repaint()
             }
+            addMoveListener {
+                with (painter.plane){
+                    val xMin = 2*xMin + xScr2Crt(it.first)
+                    val yMin = 2*yMin + yScr2Crt(it.second)
+                    val xMax = xMax + xMin + xScr2Crt(it.first)
+                    val yMax = yMax + yMin + yScr2Crt(it.second)
+                    xSegment = Pair(xMin, xMax)
+                    ySegment = Pair(yMin, yMax)
+                }
+                repaint()
+            }
         }
         
         layout = GroupLayout(contentPane).apply {
