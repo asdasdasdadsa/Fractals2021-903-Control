@@ -13,8 +13,6 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
     private var pt1: Point? = null
     private var pt2: Point? = null
 
-    private val stat = mutableListOf(Rectangle(0,0,width,height))
-
     private val selectListener: MutableList<(Rectangle)->Unit> = mutableListOf()
 
     fun addSelectListener(l: (Rectangle)->Unit){
@@ -28,6 +26,7 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
 
     init {
         addMouseListener(object : MouseAdapter(){
+
             override fun mousePressed(e: MouseEvent?) {
                 graphics.apply {
                     setXORMode(Color.WHITE)
@@ -41,24 +40,12 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
                 pt1?.let { p1 ->
                     pt2?.let { p2->
                         val r = Rectangle(min(p1.x,p2.x),min(p1.y,p2.y), abs(p2.x - p1.x),abs(p2.y-p1.y))
-
-                        stat.add(r)
-
                         selectListener.forEach { it(r) }
                     }
                 }
                 pt1 = null
                 pt2 = null
             }
-
-/*            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
-                e?.let {
-                    if(stat.size!=1)
-                        stat.removeAt(stat.size-1)
-                    selectListener.forEach { it(stat[stat.size-1]) }
-                }
-            }           */
         })
 
         addMouseMotionListener(object : MouseMotionAdapter(){

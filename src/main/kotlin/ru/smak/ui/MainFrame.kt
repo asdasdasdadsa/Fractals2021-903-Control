@@ -68,22 +68,6 @@ class MainFrame : JFrame() {
             }
         })
 
-
-        fractalPanel.addMouseListener(object : MouseAdapter() {
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
-                e?.let {
-                    if(stat.size!=1)
-                        stat.removeAt(stat.size-1)
-                    with (painter.plane){
-                        xSegment = stat[stat.size-1].first
-                        ySegment = stat[stat.size-1].second
-                    }
-                }
-                repaint()
-            }
-        })
-
         layout = GroupLayout(contentPane).apply {
             setHorizontalGroup(
                 createSequentialGroup()
