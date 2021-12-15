@@ -26,6 +26,11 @@ class FractalPainter(
     private val threadCount = 16
     private val taskPerThreadCount = 5
     private var fracService = Executors.newFixedThreadPool(threadCount)
+    private var image: BufferedImage? = null
+
+    fun getImage(): BufferedImage? {
+        return image
+    }
 
     override fun paint(g: Graphics) {
         with(plane){
@@ -55,6 +60,7 @@ class FractalPainter(
                             }
                         }
                     }
+                    image= img
                     img
                 })
             }.forEachIndexed { i, v ->

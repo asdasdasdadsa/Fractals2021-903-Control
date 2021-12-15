@@ -7,12 +7,13 @@ import ru.smak.ui.painting.fractals.FractalPainter
 import ru.smak.ui.painting.fractals.colorizers
 import java.awt.Color
 import java.awt.Dimension
-import java.awt.event.KeyEvent
-import java.awt.event.KeyListener
-import javax.swing.GroupLayout
-import javax.swing.JButton
-import javax.swing.JFrame
-import javax.swing.JPanel
+import java.awt.event.MouseAdapter
+import java.awt.event.MouseEvent
+import java.awt.image.BufferedImage
+import java.io.File
+import java.io.IOException
+import javax.imageio.ImageIO
+import javax.swing.*
 import kotlin.random.Random
 
 class MainFrame : JFrame() {
@@ -20,11 +21,12 @@ class MainFrame : JFrame() {
     val fractalPanel: SelectablePanel
     val controlPanel: JPanel=JPanel()
     val bSave:JButton= JButton("Save Im")
+    val painter: FractalPainter
 
     init{
         defaultCloseOperation = EXIT_ON_CLOSE
         minimumSize = Dimension(600, 400)
-        val painter = FractalPainter(
+        painter = FractalPainter(
             Mandelbrot(),
             CartesianPlane(-2.0, 1.0, -1.0, 1.0),
             colorizers[Random.nextInt(colorizers.size)])
@@ -43,6 +45,25 @@ class MainFrame : JFrame() {
                 repaint()
             }
         }
+
+
+        bSave.addActionListener {
+            val fileChs = JFileChooser()
+            fileChs.dialogTitle = "Choose place to save image"
+            fileChs.fileSelectionMode = JFileChooser.FILES_ONLY
+            val res = fileChs.showSaveDialog(this@MainFrame)
+            if (res == JFileChooser.APPROVE_OPTION) {
+                val im = painter.getImage()
+                val outputFile = File(fileChs.selectedFile.path + ".jpg")
+                try {
+                    ImageIO.write(im, "jpg", outputFile)
+                } catch (e: IOException) {
+                    e.printStackTrace()
+                }
+            }
+        }
+
+
 
         layout = GroupLayout(contentPane).apply {
             setHorizontalGroup(
