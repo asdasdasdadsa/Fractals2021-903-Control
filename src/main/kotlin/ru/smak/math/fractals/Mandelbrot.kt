@@ -40,6 +40,8 @@ class Mandelbrot : AlgebraicFractal{
      */
     var colorizedSet: Boolean = false
 
+    var prop = 0.0
+
     /**
      * Метод определения принадлежности точки множеству Мандельброта
      * @param c точка комплексной плоскости, для которой определяется принадлежность
@@ -50,7 +52,6 @@ class Mandelbrot : AlgebraicFractal{
      * либо величина модуля полученного в ходе итераций комплексного числа в случае colorizeDSet = true
      * @see colorizedSet
      */
-
     fun changeIterations(X1: Double, X2: Double, Y1: Double, Y2: Double, xMin: Double, yMin: Double, xMax: Double, yMax: Double) {
         val c = kotlin.math.ln((((X2 - X1) * (Y2 - Y1)) * 1.0 / ((xMax - xMin) * (yMax - yMin))).absoluteValue)
         maxIterations += c.toInt()*30
