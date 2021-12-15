@@ -27,24 +27,6 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
 
 
     init {
-/*
-        addKeyListener(object : KeyListener{
-            override fun keyTyped(e: KeyEvent?) {
-
-            }
-
-            override fun keyPressed(e: KeyEvent?) {
-                e?.let {
-                    println("asdasdasdasd")
-                }
-            }
-
-            override fun keyReleased(e: KeyEvent?) {
-
-            }
-        })
-*/
-
         addMouseListener(object : MouseAdapter(){
             override fun mousePressed(e: MouseEvent?) {
                 graphics.apply {

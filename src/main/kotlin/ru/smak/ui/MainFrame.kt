@@ -43,24 +43,6 @@ class MainFrame : JFrame() {
             }
         }
 
-
-     /*   val action: AbstractAction = object : AbstractAction() {
-            override fun actionPerformed(e: ActionEvent) {
-                if (e.source is JButton) {
-                    val button = e.source as JButton
-                    button.doClick()
-                } else if (e.source is JComponent) {
-                    val component = e.source as JComponent
-                    component.transferFocus()
-                }
-            }
-        }
-*/
-
-     //   val button1 = JButton()
-    //    button1.getActionMap().put("foo", action);
-        //fractalPanel.getActionForKeyStroke()
-        //fractalPanel.getInputMap().put(KeyStroke.getKeyStroke(Character.valueOf('control A'), 0), "foo")
         fractalPanel.getInputMap().put(KeyStroke.getKeyStroke("control A"),"foo")
 
         fractalPanel.addKeyListener(object : KeyListener{
@@ -69,14 +51,20 @@ class MainFrame : JFrame() {
             }
 
             override fun keyPressed(e: KeyEvent?) {
-                e?.let {
-                    if(e.keyChar=='z')
-                    println("asdasdasdasd")
-                }
             }
 
             override fun keyReleased(e: KeyEvent?) {
-
+                e?.let{
+                    if(e.keyChar=='\u001A'){
+                        if(stat.size!=1)
+                            stat.removeAt(stat.size-1)
+                        with (painter.plane){
+                            xSegment = stat[stat.size-1].first
+                            ySegment = stat[stat.size-1].second
+                        }
+                    }
+                    repaint()
+                }
             }
         })
 
