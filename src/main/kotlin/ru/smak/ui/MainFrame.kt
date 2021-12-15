@@ -35,9 +35,11 @@ class MainFrame : JFrame() {
             addSelectListener{
                 with (painter.plane){
                     var xMin = xScr2Crt(it.x)
-                    var yMin = yScr2Crt(it.y)
+                    var yMin = yScr2Crt(it.y + it.height)
                     var xMax = xScr2Crt(it.x + it.width)
-                    var yMax = yScr2Crt(it.y + it.height)
+                    var yMax = yScr2Crt(it.y)
+
+
 
                     if (xMax - xMin > yMax - yMin){
                         yMax = yMin + (xMax - xMin) / prop
