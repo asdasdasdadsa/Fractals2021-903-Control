@@ -29,7 +29,6 @@ class MainFrame : JFrame() {
         frame = JFrame()
         menu = JMenu()
         menuBar = JMenuBar()
-        //fractalPanel.setJMenuBar(menuBar)
         menuBar.setBounds(0, 0, 350, 30)
         val fileMenu = JMenu("Файл")
         menuBar.add(fileMenu)
@@ -40,7 +39,24 @@ class MainFrame : JFrame() {
         val OpenMenu = JMenuItem("Открыть...")
         fileMenu.add(OpenMenu)
         val SaveMenu = JMenuItem("Сохранить как")
+        val fracMenu = JMenuItem("Фрактал")
+        val imageMenu = JMenuItem("Изображение")
         fileMenu.add(SaveMenu)
+
+        val FractalMenu = JMenu("Фрактал")
+        menuBar.add(FractalMenu)
+        val ColorSitemMenu = JMenuItem("Цветовая схема")
+        val ColorSitem1Menu = JButton("чб")
+        val ColorSitem2Menu = JMenuItem("сз")
+        val ColorSitem3Menu = JMenuItem("кз")
+        val TypeFracMenu = JMenuItem("Тип фрактала")
+        val DynamicMenu = JMenuItem("Динамические итерации")
+        val ExcursionMenu = JMenuItem("Создание экскурсии")
+        ColorSitemMenu.add(ColorSitem1Menu)
+        FractalMenu.add(ColorSitemMenu)
+        FractalMenu.add(TypeFracMenu)
+        FractalMenu.add(DynamicMenu)
+        FractalMenu.add(ExcursionMenu)
 
         fractalPanel = SelectablePanel(painter).apply {
             background = Color.WHITE
@@ -81,5 +97,4 @@ class MainFrame : JFrame() {
         }
     }
 
-    //fun onSelectArea(r: Rectangle)
 }
