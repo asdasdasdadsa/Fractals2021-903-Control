@@ -11,17 +11,29 @@ import javax.swing.*
 
 class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
     val ctrlPanel : JPanel
-    val animLabel : JLabel
+    val kfLabel : JLabel
     val frameScroll : JScrollPane
     val keyFramesPanel : JPanel
     val addKeyFrame : JButton
+    val createVideoBtn : JButton
+    val frameTimeLbl : JLabel
+    val frameTimeSpinner : JSpinner
+    val frameTimeModel : SpinnerNumberModel
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
         title = "Экскурсия"
         minimumSize = Dimension(1200, 700)
-        animLabel = JLabel().apply {
-            text = "Создание анимации"
+        kfLabel = JLabel().apply {
+            text = "Ключевые кадры"
             font = getFont().deriveFont(16.0f)
+        }
+        frameTimeLbl = JLabel().apply {
+            text = "Время смены ключевых кадров (с)"
+        }
+        frameTimeModel = SpinnerNumberModel(5, 1, 10, 1)
+        frameTimeSpinner = JSpinner(frameTimeModel)
+        createVideoBtn = JButton().apply {
+            text = "Создать видео"
         }
         keyFramesPanel = KeyFramesPanel().apply {
             background = Color.GRAY
@@ -42,23 +54,9 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                 val imgGr = img.createGraphics()
                 selectablePanel.paint(imgGr)
                 keyFramesPanel.addKeyFrame(img)
-
-               /* with(keyFramesPanel.KFsize) {
-                    val keyFrame = KeyFramePanel(
-                        ImagePainter(
-                            img,
-                            Dimension(width - frameScroll.verticalScrollBar.width  , height)
-                        )
-                    )
-                    keyFramesPanel.addKeyFrame(keyFrame)
-                    if (keyFrame.y >= frameScroll.size.height) {
-                        frameScroll.preferredSize.height += keyFrame.size.height + keyFrame.Gap
-                        frameScroll.revalidate()
-                    }
-                    frameScroll.add(keyFrame)
-                }*/
             }
         })
+
         ctrlPanel = JPanel().apply {
             background = Color.WHITE
             border = BorderFactory.createLineBorder(Color.BLACK)
@@ -87,22 +85,30 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                     .addGap(50)
                     .addGroup(
                         createParallelGroup(GroupLayout.Alignment.CENTER)
-                            .addComponent(animLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                            .addComponent(kfLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                             .addGap(30)
                             .addComponent(frameScroll, 300, 300, 300)
                             .addGap(10)
                             .addComponent(addKeyFrame, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addGap(15)
+                            .addComponent(frameTimeLbl, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addGap(5)
+                            .addComponent(frameTimeSpinner, 100, GroupLayout.PREFERRED_SIZE, Int.MAX_VALUE)
                     )
                     .addGap(50)
             )
             setVerticalGroup(
                 createSequentialGroup()
                     .addGap(15)
-                    .addComponent(animLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                    .addComponent(kfLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                     .addGap(30)
                     .addComponent(frameScroll, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE , 400)
                     .addGap(10)
                     .addComponent(addKeyFrame, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addGap(15)
+                    .addComponent(frameTimeLbl, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addGap(5)
+                    .addComponent(frameTimeSpinner, 20, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addGap(30, 30 , Int.MAX_VALUE)
             )
         }
