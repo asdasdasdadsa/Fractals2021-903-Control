@@ -12,13 +12,14 @@ import java.awt.event.MouseEvent
 import javax.swing.*
 import java.awt.event.*
 import javax.swing.*
+import javax.swing.*
 import kotlin.random.Random
+
 
 class MainFrame : JFrame() {
 
     val fractalPanel: SelectablePanel
     var frame: JFrame //= null
-    var frame2: JFrame
     val menu: JMenu
     val menuBar: JMenuBar
 
@@ -33,7 +34,6 @@ class MainFrame : JFrame() {
             colorizers[Random.nextInt(colorizers.size)])
 
         frame = JFrame()
-        frame2 = JFrame()
         menu = JMenu()
         menuBar = JMenuBar()
         menuBar.setBounds(0, 0, 350, 30)
@@ -146,4 +146,5 @@ class MainFrame : JFrame() {
         }
     }
 
+    //fun onSelectArea(r: Rectangle)
 }
