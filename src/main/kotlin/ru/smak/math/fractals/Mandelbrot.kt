@@ -2,6 +2,7 @@ package ru.smak.math.fractals
 
 import org.kotlinmath.Complex
 import org.kotlinmath.ZERO
+import org.kotlinmath.ln
 import ru.smak.math.mod2
 import kotlin.math.absoluteValue
 
@@ -11,7 +12,7 @@ class Mandelbrot : AlgebraicFractal{
      * Количество итераций, которые необходимы для проверки принедлежности
      * точки множеству Мандельброта
      */
-    var maxIterations = 10
+    var maxIterations = 200
 
     /**
      * Квадрат радиуса принадлежности
@@ -51,8 +52,8 @@ class Mandelbrot : AlgebraicFractal{
      */
 
     fun changeIterations(X1: Double, X2: Double, Y1: Double, Y2: Double, xMin: Double, yMin: Double, xMax: Double, yMax: Double) {
-        val c = (((X2 - X1) * (Y2 - Y1)) * 1.0 / ((xMax - xMin) * (yMax - yMin))).absoluteValue
-        maxIterations *= c.toInt()
+        val c = kotlin.math.ln((((X2 - X1) * (Y2 - Y1)) * 1.0 / ((xMax - xMin) * (yMax - yMin))).absoluteValue)
+        maxIterations += c.toInt()*30
     }
 
     override fun isInSet(c: Complex): Double {
