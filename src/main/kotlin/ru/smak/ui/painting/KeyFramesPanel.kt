@@ -7,29 +7,27 @@ import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.awt.image.BufferedImage
 import javax.swing.*
+import javax.swing.text.BoxView
 
 class KeyFramesPanel : JPanel() {
-    private val keyFrames: ArrayList<GraphicsPanel> = arrayListOf()
-    val _keyFrames
-        get() = keyFrames
+
+    private val KFwithGaps : ArrayList<Pair<GraphicsPanel,Component>> = arrayListOf()
+    val keyFrames : ArrayList<GraphicsPanel>
+        get() {
+            val _keyFrames = arrayListOf<GraphicsPanel>()
+            KFwithGaps.forEach {
+                _keyFrames.add(it.first)
+            }
+            return _keyFrames
+        }
+
     val KFsize = Dimension(300, 100)
     private val gap = 5
     private val borderSz = 1
-    private var parallelGr : GroupLayout.ParallelGroup
-    private var sequentialGr : GroupLayout.SequentialGroup
-    private var layoutMngr :GroupLayout
     init {
-        //layout = BoxLayout(this, BoxLayout.Y_AXIS)
-        layout = GroupLayout(this).apply {
-            parallelGr = createParallelGroup()
-            sequentialGr = createSequentialGroup()
-            setHorizontalGroup(
-                parallelGr
-            )
-            setVerticalGroup(
-                sequentialGr
-            )
-            layoutMngr = this
+        //layout = null
+
+        layout = BoxLayout(this, BoxLayout.Y_AXIS).apply {
         }
 
         addMouseListener(object : MouseAdapter() {
@@ -37,62 +35,58 @@ class KeyFramesPanel : JPanel() {
                 e?.apply {
                     if (button == MouseEvent.BUTTON1) {
 
-                        val delKF = keyFrames.firstOrNull {
-                            (x >= it.x && x <= it.width && y >= it.y && y <= it.y + it.height)
+                        val delKF = KFwithGaps.firstOrNull {
+                            (x >= it.first.x && x <= it.first.width && y >= it.first.y && y <= it.first.y + it.first.height)
                         }
                         if (delKF != null)
-                            deleteKeyFrame(keyFrames.indexOf(delKF))
+                            deleteKeyFrame(KFwithGaps.indexOf(delKF))
                     }
                 }
             }
         })
     }
 
+
     fun addKeyFrame(img: BufferedImage) {
         val keyFrame = GraphicsPanel(ImagePainter(img, KFsize)).apply {
-            //minimumSize = KFsize
-            //preferredSize = KFsize
-            //maximumSize = KFsize
+            preferredSize = KFsize
+            maximumSize = preferredSize
             setSize(KFsize)
         }
         //calcFramePosition(keyFrame)
-        //add(keyFrame)
-        if (keyFrames.isEmpty()) {
-            parallelGr.addComponent(keyFrame, KFsize.width, KFsize.width, KFsize.width)
-            sequentialGr.addComponent(keyFrame, KFsize.height, KFsize.height, KFsize.height)
-        }
-        else {
-            parallelGr.addGap(gap).addComponent(keyFrame, KFsize.width, KFsize.width, KFsize.width)
-            sequentialGr.addGap(gap).addComponent(keyFrame, KFsize.height, KFsize.height, KFsize.height)
-        }
-        /*parallelGr.addGroup(layoutMngr.createSequentialGroup().addComponent(keyFrame, KFsize.width, KFsize.width, KFsize.width).addGap(gap))
-        sequentialGr.addGroup(layoutMngr.createSequentialGroup().addComponent(keyFrame, KFsize.height, KFsize.height, KFsize.height).addGap(gap))
-        sequentialGr.addComponent(keyFrame, KFsize.height, KFsize.height, KFsize.height)*/
-        keyFrames.add(keyFrame)
+        add(keyFrame)
+        val vertGap = Box.createVerticalStrut(gap)
+        add(vertGap)
+        KFwithGaps.add(Pair(keyFrame, vertGap))
         revalidate()
     }
 
     fun deleteKeyFrame(index: Int) {
-        remove(keyFrames.get(index))
-        keyFrames.removeAt(index)
-        repaint()
+        val currFrame = KFwithGaps.get(index).first
+        val vGap = KFwithGaps.get(index).second
+        remove(vGap)
+        remove(currFrame)
+        KFwithGaps.removeAt(index)
         //reCalcFramesPositions()
+        revalidate()
+        repaint()
     }
 
- /*   // Производим правильное размещение ключевого кадра, при его добавлении
-    private fun calcFramePosition(keyFrame: GraphicsPanel) {
+    // Производим правильное размещение ключевого кадра, при его добавлении
+   /* private fun calcFramePosition(keyFrame: GraphicsPanel) {
         val indexOfFrame = if (keyFrames.isEmpty()) 0 else keyFrames.lastIndex + 1
         with(keyFrame) {
-            setLocation(borderSz, indexOfFrame * (size.height + gap))
+          //setLocation(borderSz, indexOfFrame * (size.height + gap))
+            setBounds(0, indexOfFrame * (size.height + gap), size.width, size.height)
         }
     }*/
 
-    private fun reCalcFramesPositions() {
+    /*private fun reCalcFramesPositions() {
         keyFrames.forEachIndexed { i, kf ->
             kf.setLocation(borderSz, i * (kf.size.height + gap))
         }
         revalidate()
-    }
+    }*/
 
 
 }
