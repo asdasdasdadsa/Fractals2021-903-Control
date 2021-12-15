@@ -8,6 +8,7 @@ import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.awt.image.BufferedImage
 import javax.swing.*
+import javax.swing.filechooser.FileNameExtensionFilter
 
 class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
     val ctrlPanel : JPanel
@@ -19,6 +20,7 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
     val frameTimeLbl : JLabel
     val frameTimeSpinner : JSpinner
     val frameTimeModel : SpinnerNumberModel
+    val fileChooser : JFileChooser
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
         title = "Экскурсия"
@@ -28,7 +30,7 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
             font = getFont().deriveFont(16.0f)
         }
         frameTimeLbl = JLabel().apply {
-            text = "Время смены ключевых кадров (с)"
+            text = "Время смены ключевых кадров (с):"
         }
         frameTimeModel = SpinnerNumberModel(5, 1, 10, 1)
         frameTimeSpinner = JSpinner(frameTimeModel)
@@ -41,8 +43,16 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
         frameScroll = JScrollPane(keyFramesPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER).apply {
             preferredSize = Dimension(300, 400)
         }
-
-
+        fileChooser = JFileChooser().apply {
+            fileFilter = FileNameExtensionFilter("Видео-файлы анимации фракталов", "avi")
+        }
+        createVideoBtn.addMouseListener(object : MouseAdapter() {
+            override fun mouseClicked(e: MouseEvent?) {
+                fileChooser.dialogTitle = "Сохранение видео"
+                fileChooser.fileSelectionMode = JFileChooser.FILES_AND_DIRECTORIES
+                val result = fileChooser.showSaveDialog(this@AnimationFrame)
+            }
+        })
 
         addKeyFrame = JButton().apply {
             text = "Добавить ключевой кадр"
@@ -94,6 +104,8 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                             .addComponent(frameTimeLbl, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
                             .addGap(5)
                             .addComponent(frameTimeSpinner, 100, GroupLayout.PREFERRED_SIZE, Int.MAX_VALUE)
+                            .addGap(5)
+                            .addComponent(createVideoBtn, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
                     )
                     .addGap(50)
             )
@@ -109,6 +121,8 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                     .addComponent(frameTimeLbl, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addGap(5)
                     .addComponent(frameTimeSpinner, 20, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addGap(5)
+                    .addComponent(createVideoBtn, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addGap(30, 30 , Int.MAX_VALUE)
             )
         }
