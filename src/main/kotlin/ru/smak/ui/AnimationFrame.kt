@@ -1,18 +1,12 @@
 package ru.smak.ui
 
-import ru.smak.ui.painting.ImagePainter
-import ru.smak.ui.painting.KeyFramePanel
 import ru.smak.ui.painting.KeyFramesPanel
 import ru.smak.ui.painting.SelectablePanel
 import java.awt.Color
 import java.awt.Dimension
-import java.awt.Image
-import java.awt.event.ComponentAdapter
-import java.awt.event.ComponentEvent
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.awt.image.BufferedImage
-import java.io.BufferedReader
 import javax.swing.*
 
 class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
@@ -33,7 +27,10 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
             background = Color.GRAY
         }
         frameScroll = JScrollPane(keyFramesPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER).apply {
+            preferredSize = Dimension(300, 400)
         }
+
+
 
         addKeyFrame = JButton().apply {
             text = "Добавить ключевой кадр"
@@ -45,6 +42,7 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                 val imgGr = img.createGraphics()
                 selectablePanel.paint(imgGr)
                 keyFramesPanel.addKeyFrame(img)
+
                /* with(keyFramesPanel.KFsize) {
                     val keyFrame = KeyFramePanel(
                         ImagePainter(
@@ -102,7 +100,7 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                     .addGap(15)
                     .addComponent(animLabel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                     .addGap(30)
-                    .addComponent(frameScroll, 400, 400 , 400)
+                    .addComponent(frameScroll, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE , 400)
                     .addGap(10)
                     .addComponent(addKeyFrame, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addGap(30, 30 , Int.MAX_VALUE)
