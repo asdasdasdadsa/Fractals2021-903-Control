@@ -7,13 +7,16 @@ import ru.smak.ui.painting.fractals.FractalPainter
 import ru.smak.ui.painting.fractals.colorizers
 import java.awt.Color
 import java.awt.Dimension
-import javax.swing.GroupLayout
-import javax.swing.JFrame
+import java.awt.event.*
+import javax.swing.*
 import kotlin.random.Random
+
 
 class MainFrame : JFrame() {
 
     val fractalPanel: SelectablePanel
+
+    val stat = mutableListOf(Pair(Pair(-2.0,1.0),Pair(-1.0,1.0)) )
 
     var prop = 0.0
 
@@ -51,12 +54,38 @@ class MainFrame : JFrame() {
                     mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
                     xSegment = Pair(xMin, xMax)
                     ySegment = Pair(yMin, yMax)
+
+                    stat.add(Pair(Pair(xMin,xMax),Pair(yMin,yMax)))
                 }
                 repaint()
             }
-
         }
-        
+
+        fractalPanel.getInputMap().put(KeyStroke.getKeyStroke("control A"),"foo")
+
+        fractalPanel.addKeyListener(object : KeyListener{
+            override fun keyTyped(e: KeyEvent?) {
+
+            }
+
+            override fun keyPressed(e: KeyEvent?) {
+            }
+
+            override fun keyReleased(e: KeyEvent?) {
+                e?.let{
+                    if(e.keyChar=='\u001A'){
+                        if(stat.size!=1)
+                            stat.removeAt(stat.size-1)
+                        with (painter.plane){
+                            xSegment = stat[stat.size-1].first
+                            ySegment = stat[stat.size-1].second
+                        }
+                    }
+                    repaint()
+                }
+            }
+        })
+
         layout = GroupLayout(contentPane).apply {
             setHorizontalGroup(
                 createSequentialGroup()
