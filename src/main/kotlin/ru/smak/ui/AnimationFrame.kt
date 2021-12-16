@@ -63,7 +63,7 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                 val img = BufferedImage(selectablePanel.width, selectablePanel.height, BufferedImage.TYPE_INT_RGB)
                 val imgGr = img.createGraphics()
                 selectablePanel.paint(imgGr)
-                keyFramesPanel.addKeyFrame(img)
+                keyFramesPanel.addKeyFramePanel(img)
             }
         })
 
