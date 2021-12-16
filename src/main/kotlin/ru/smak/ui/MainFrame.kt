@@ -25,13 +25,20 @@ class MainFrame : JFrame() {
 
     val stat = mutableListOf(Pair(Pair(-2.0,1.0),Pair(-1.0,1.0)) )
 
+    var prop = 0.0
+
     init{
         defaultCloseOperation = EXIT_ON_CLOSE
         minimumSize = Dimension(600, 400)
+        val mand = Mandelbrot()
         val painter = FractalPainter(
-            Mandelbrot(),
+            mand,
             CartesianPlane(-2.0, 1.0, -1.0, 1.0),
             colorizers[Random.nextInt(colorizers.size)])
+
+        with(painter.plane){
+            prop = (xMax - xMin) / (yMax - yMin)
+        }
 
         frame = JFrame()
         frame2 = JFrame()
@@ -182,10 +189,21 @@ class MainFrame : JFrame() {
             background = Color.WHITE
             addSelectListener{
                 with (painter.plane){
-                    val xMin = xScr2Crt(it.x)
-                    val yMin = yScr2Crt(it.y)
-                    val xMax = xScr2Crt(it.x + it.width)
-                    val yMax = yScr2Crt(it.y + it.height)
+                    var xMin = xScr2Crt(it.x)
+                    var yMin = yScr2Crt(it.y + it.height)
+                    var xMax = xScr2Crt(it.x + it.width)
+                    var yMax = yScr2Crt(it.y)
+
+
+
+                    if (xMax - xMin > yMax - yMin){
+                        yMax = yMin + (xMax - xMin) / prop
+                    } else{
+                        xMax = xMin + (yMax - yMin) * prop
+                    }
+
+
+                    mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
                     xSegment = Pair(xMin, xMax)
                     ySegment = Pair(yMin, yMax)
 

@@ -1,6 +1,8 @@
 package ru.smak.ui.painting
 
+import ru.smak.math.fractals.Mandelbrot
 import ru.smak.ui.GraphicsPanel
+import ru.smak.ui.painting.fractals.FractalPainter
 import java.awt.Color
 import java.awt.Point
 import java.awt.Rectangle
@@ -14,6 +16,7 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
     private var pt2: Point? = null
 
     private val selectListener: MutableList<(Rectangle)->Unit> = mutableListOf()
+
 
     fun addSelectListener(l: (Rectangle)->Unit){
         selectListener.add(l)
