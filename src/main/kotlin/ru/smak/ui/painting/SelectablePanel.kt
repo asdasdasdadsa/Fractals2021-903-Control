@@ -14,7 +14,6 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
 
     private var pt1: Point? = null
     private var pt2: Point? = null
-    private val originalImage: BufferedImage? = null
 
     private val stat = mutableListOf(Rectangle(0,0,width,height))
 
@@ -27,12 +26,6 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
     fun removeSelectListener(l: (Rectangle)->Unit){
         selectListener.remove(l)
     }
-
-    fun getImage(): BufferedImage? {
-
-        return originalImage
-    }
-
 
     init {
 

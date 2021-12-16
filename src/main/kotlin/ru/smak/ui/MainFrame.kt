@@ -7,9 +7,6 @@ import ru.smak.ui.painting.fractals.FractalPainter
 import ru.smak.ui.painting.fractals.colorizers
 import java.awt.Color
 import java.awt.Dimension
-import java.awt.event.MouseAdapter
-import java.awt.event.MouseEvent
-import java.awt.image.BufferedImage
 import java.io.File
 import java.io.IOException
 import javax.imageio.ImageIO
@@ -46,7 +43,6 @@ class MainFrame : JFrame() {
             }
         }
 
-
         bSave.addActionListener {
             val fileChs = JFileChooser()
             fileChs.dialogTitle = "Choose place to save image"
@@ -54,16 +50,17 @@ class MainFrame : JFrame() {
             val res = fileChs.showSaveDialog(this@MainFrame)
             if (res == JFileChooser.APPROVE_OPTION) {
                 val im = painter.getImage()
+//                val l = painter.getList()
                 val outputFile = File(fileChs.selectedFile.path + ".jpg")
-                try {
-                    ImageIO.write(im, "jpg", outputFile)
-                } catch (e: IOException) {
-                    e.printStackTrace()
-                }
+//                for( i in 0 until l.size) {
+                    try {
+                        ImageIO.write(im, "jpg", outputFile)
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
+//                }
             }
         }
-
-
 
         layout = GroupLayout(contentPane).apply {
             setHorizontalGroup(
