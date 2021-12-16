@@ -45,7 +45,7 @@ class MainFrame : JFrame() {
                 repaint()
             }
         }
-        animFrame = AnimationFrame(fractalPanel)
+        animFrame = AnimationFrame(fractalPanel, painter)
         openAnimFrame.addMouseListener( object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent?) {
                 animFrame.isVisible = true

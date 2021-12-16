@@ -11,8 +11,8 @@ class KeyFramesPanel : JPanel() {
 
     // Массив из "мини-панелей" с их отступами
     private val KFwithGaps : ArrayList<Pair<GraphicsPanel,Component>> = arrayListOf()
-    // Массив с изображениями ключевых кадров на "мини-панелях"
-    val keyFrames : ArrayList<BufferedImage> = arrayListOf()
+    // Массив с изображениями ключевых кадров на "мини-панелях" и объектами плоскостей
+    val keyFrames : ArrayList<Pair<BufferedImage, CartesianPlane>> = arrayListOf<Pair<BufferedImage, CartesianPlane>>()
     // Размер каждой "мини-панели" с ключевым кадром
     val KFsize = Dimension(300, 100)
     // Размер отступа между "мини-панелями"
@@ -41,9 +41,10 @@ class KeyFramesPanel : JPanel() {
     }
 
 
-    fun addKeyFramePanel(img: BufferedImage) {
-        // Добавляем в массив изображений полученный BufImg
-        keyFrames.add(img)
+    fun addKeyFramePanel(img: BufferedImage, plane : CartesianPlane) {
+        // Добавляем в массив изображений с соответствующими объектами плоскостей полученные данные
+        val _plane = CartesianPlane(plane.xMin, plane.xMax, plane.yMin, plane.yMax)
+        keyFrames.add(Pair(img, _plane))
         // Создаем панель, которая содержит панель ключевых кадров
         val keyFramePanel = GraphicsPanel(ImagePainter(img, KFsize)).apply {
             preferredSize = KFsize

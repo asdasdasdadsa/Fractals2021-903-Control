@@ -2,15 +2,18 @@ package ru.smak.ui
 
 import ru.smak.ui.painting.KeyFramesPanel
 import ru.smak.ui.painting.SelectablePanel
+import ru.smak.ui.painting.VideoMaker
+import ru.smak.ui.painting.fractals.FractalPainter
 import java.awt.Color
 import java.awt.Dimension
+import java.awt.Rectangle
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.awt.image.BufferedImage
 import javax.swing.*
 import javax.swing.filechooser.FileNameExtensionFilter
 
-class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
+class AnimationFrame(private val selectablePanel: SelectablePanel, private val fractalPainter: FractalPainter) : JFrame() {
     val ctrlPanel : JPanel
     val kfLabel : JLabel
     val frameScroll : JScrollPane
@@ -51,6 +54,10 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                 fileChooser.dialogTitle = "Сохранение видео"
                 fileChooser.fileSelectionMode = JFileChooser.FILES_AND_DIRECTORIES
                 val result = fileChooser.showSaveDialog(this@AnimationFrame)
+                val videoMaker = VideoMaker(fractalPainter, selectablePanel)
+                videoMaker.secBetweenFrames = 2
+                videoMaker.addKeyFrames(keyFramesPanel.keyFrames)
+                videoMaker.createFrames()
             }
         })
 
@@ -63,7 +70,7 @@ class AnimationFrame(private val selectablePanel: SelectablePanel) : JFrame() {
                 val img = BufferedImage(selectablePanel.width, selectablePanel.height, BufferedImage.TYPE_INT_RGB)
                 val imgGr = img.createGraphics()
                 selectablePanel.paint(imgGr)
-                keyFramesPanel.addKeyFramePanel(img)
+                keyFramesPanel.addKeyFramePanel(img, fractalPainter.plane)
             }
         })
 
