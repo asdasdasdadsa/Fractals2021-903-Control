@@ -66,6 +66,7 @@ class MainFrame : JFrame() {
         val Type4 = JMenuItem("Множество Мандельброта 4 степени")
         val Type5 = JMenuItem("Множество Мандельброта 5 степени")
         val DynamicMenu = JCheckBoxMenuItem("Динамические итерации")
+        val SaveRationMenu = JCheckBoxMenuItem("Сохранение отношения")
         val ExcursionMenu = JMenuItem("Создание экскурсии")
         ColorSitemMenu.add(ColorSitem1Menu)
         ColorSitemMenu.add(ColorSitem2Menu)
@@ -78,6 +79,7 @@ class MainFrame : JFrame() {
         FractalMenu.add(ColorSitemMenu)
         FractalMenu.add(TypeFracMenu)
         FractalMenu.add(DynamicMenu)
+        FractalMenu.add(SaveRationMenu)
         FractalMenu.add(ExcursionMenu)
 
         loadMenu.addMouseListener(object: MouseAdapter(){
