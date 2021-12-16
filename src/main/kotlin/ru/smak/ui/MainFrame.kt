@@ -12,6 +12,7 @@ import java.awt.event.MouseEvent
 import javax.swing.*
 import java.awt.event.*
 import javax.swing.*
+import javax.swing.*
 import kotlin.random.Random
 
 class MainFrame : JFrame() {
@@ -146,4 +147,5 @@ class MainFrame : JFrame() {
         }
     }
 
+    //fun onSelectArea(r: Rectangle)
 }
