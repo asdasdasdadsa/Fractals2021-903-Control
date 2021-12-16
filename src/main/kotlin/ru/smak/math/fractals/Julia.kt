@@ -1,6 +1,5 @@
 package ru.smak.math.fractals
 import org.kotlinmath.Complex
-import org.kotlinmath.ZERO
 import ru.smak.math.mod2
 
 class Julia: AlgebraicFractal {
