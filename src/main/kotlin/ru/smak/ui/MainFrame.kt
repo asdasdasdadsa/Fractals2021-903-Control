@@ -7,6 +7,8 @@ import ru.smak.ui.painting.fractals.FractalPainter
 import ru.smak.ui.painting.fractals.colorizers
 import java.awt.Color
 import java.awt.Dimension
+import java.awt.event.MouseAdapter
+import java.awt.event.MouseEvent
 import javax.swing.*
 import java.awt.event.*
 import javax.swing.*
@@ -16,6 +18,7 @@ class MainFrame : JFrame() {
 
     val fractalPanel: SelectablePanel
     var frame: JFrame //= null
+    var frame2: JFrame
     val menu: JMenu
     val menuBar: JMenuBar
 
@@ -30,6 +33,7 @@ class MainFrame : JFrame() {
             colorizers[Random.nextInt(colorizers.size)])
 
         frame = JFrame()
+        frame2 = JFrame()
         menu = JMenu()
         menuBar = JMenuBar()
         menuBar.setBounds(0, 0, 350, 30)
@@ -54,12 +58,22 @@ class MainFrame : JFrame() {
         val ColorSitem1Menu = JMenuItem("чб")
         val ColorSitem2Menu = JMenuItem("сз")
         val ColorSitem3Menu = JMenuItem("кз")
+        val ColorSitem4Menu = JMenuItem("кc")
         val TypeFracMenu = JMenu("Тип фрактала")
+        val Type2 = JMenuItem("2 степени")
+        val Type3 = JMenuItem("3 степени")
+        val Type4 = JMenuItem("4 степени")
+        val Type5 = JMenuItem("5 степени")
         val DynamicMenu = JCheckBoxMenuItem("Динамические итерации")
         val ExcursionMenu = JMenuItem("Создание экскурсии")
         ColorSitemMenu.add(ColorSitem1Menu)
         ColorSitemMenu.add(ColorSitem2Menu)
         ColorSitemMenu.add(ColorSitem3Menu)
+        ColorSitemMenu.add(ColorSitem4Menu)
+        TypeFracMenu.add(Type2)
+        TypeFracMenu.add(Type3)
+        TypeFracMenu.add(Type4)
+        TypeFracMenu.add(Type5)
         FractalMenu.add(ColorSitemMenu)
         FractalMenu.add(TypeFracMenu)
         FractalMenu.add(DynamicMenu)
