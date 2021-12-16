@@ -8,6 +8,9 @@ import ru.smak.ui.painting.fractals.FractalPainter
 import ru.smak.ui.painting.fractals.colorizers
 import java.awt.Color
 import java.awt.Dimension
+import java.awt.Rectangle
+import java.awt.event.KeyEvent
+import java.awt.event.KeyListener
 import java.awt.SystemColor.window
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
@@ -41,6 +44,7 @@ class MainFrame : JFrame() {
                 repaint()
             }
         }
+
         fractalPanel.addMouseListener(object: MouseAdapter(){
             override fun mouseClicked(e: MouseEvent?) {
                 super.mouseClicked(e)
@@ -51,7 +55,9 @@ class MainFrame : JFrame() {
 
             }
         })
-        
+
+
+
         layout = GroupLayout(contentPane).apply {
             setHorizontalGroup(
                 createSequentialGroup()
