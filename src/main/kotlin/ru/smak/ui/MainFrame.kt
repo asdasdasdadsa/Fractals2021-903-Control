@@ -80,6 +80,103 @@ class MainFrame : JFrame() {
         FractalMenu.add(DynamicMenu)
         FractalMenu.add(ExcursionMenu)
 
+        loadMenu.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+
+            }
+        })
+
+        SourceAreaMenu.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+
+            }
+        })
+
+        OpenMenu.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+
+            }
+        })
+
+        fracMenu.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+
+            }
+        })
+
+        imageMenu.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+
+            }
+        })
+
+        ColorSitem1Menu.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+
+            }
+        })
+        ColorSitem2Menu.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+
+            }
+        })
+        ColorSitem3Menu.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+
+            }
+        })
+        ColorSitem4Menu.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+
+            }
+        })
+
+        Type2.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+
+            }
+        })
+        Type3.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+
+            }
+        })
+        Type4.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+
+            }
+        })
+        Type5.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+
+            }
+        })
+        DynamicMenu.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+
+            }
+        })
+
+        ExcursionMenu.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+
+            }
+        })
         fractalPanel = SelectablePanel(painter).apply {
             background = Color.WHITE
             addSelectListener{
