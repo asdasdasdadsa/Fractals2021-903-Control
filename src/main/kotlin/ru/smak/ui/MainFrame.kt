@@ -173,12 +173,6 @@ class MainFrame : JFrame() {
 
             }
         })
-        DynamicMenu.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
-
-            }
-        })
 
         ExcursionMenu.addMouseListener(object: MouseAdapter(){
             override fun mouseClicked(e: MouseEvent?) {
@@ -196,15 +190,16 @@ class MainFrame : JFrame() {
                     var yMax = yScr2Crt(it.y)
 
 
-
-                    if (xMax - xMin > yMax - yMin){
-                        yMax = yMin + (xMax - xMin) / prop
-                    } else{
-                        xMax = xMin + (yMax - yMin) * prop
+                    if(SaveRationMenu.state){
+                        if (xMax - xMin > yMax - yMin){
+                            yMax = yMin + (xMax - xMin) / prop
+                        } else{
+                            xMax = xMin + (yMax - yMin) * prop
+                        }
                     }
 
-
-                    mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
+                    if(DynamicMenu.state)
+                        mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
                     xSegment = Pair(xMin, xMax)
                     ySegment = Pair(yMin, yMax)
 
