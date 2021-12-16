@@ -50,15 +50,12 @@ class MainFrame : JFrame() {
             val res = fileChs.showSaveDialog(this@MainFrame)
             if (res == JFileChooser.APPROVE_OPTION) {
                 val im = painter.getImage()
-//                val l = painter.getList()
                 val outputFile = File(fileChs.selectedFile.path + ".jpg")
-//                for( i in 0 until l.size) {
                     try {
                         ImageIO.write(im, "jpg", outputFile)
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
-//                }
             }
         }
 
