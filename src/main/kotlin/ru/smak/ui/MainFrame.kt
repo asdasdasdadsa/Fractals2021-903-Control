@@ -40,6 +40,7 @@ class MainFrame : JFrame() {
             prop = (xMax - xMin) / (yMax - yMin)
         }
 
+
         frame = JFrame()
         frame2 = JFrame()
         menu = JMenu()
@@ -74,6 +75,7 @@ class MainFrame : JFrame() {
         val Type4 = JMenuItem("Множество Мандельброта 4 степени")
         val Type5 = JMenuItem("Множество Мандельброта 5 степени")
         val DynamicMenu = JCheckBoxMenuItem("Динамические итерации")
+        val SaveRationMenu = JCheckBoxMenuItem("Сохранение отношения")
         val ExcursionMenu = JMenuItem("Создание экскурсии")
         ColorSitemMenu.add(ColorSitem1Menu)
         ColorSitemMenu.add(ColorSitem2Menu)
@@ -101,6 +103,8 @@ class MainFrame : JFrame() {
 
             }
         })
+
+
 
         OpenMenu.addMouseListener(object: MouseAdapter(){
             override fun mouseClicked(e: MouseEvent?) {
@@ -172,12 +176,6 @@ class MainFrame : JFrame() {
 
             }
         })
-        DynamicMenu.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
-
-            }
-        })
 
         ExcursionMenu.addMouseListener(object: MouseAdapter(){
             override fun mouseClicked(e: MouseEvent?) {
@@ -203,7 +201,19 @@ class MainFrame : JFrame() {
                     }
 
 
+                    if(SaveRationMenu.state){
+                        if (xMax - xMin > yMax - yMin){
+                            yMax = yMin + (xMax - xMin) / prop
+                        } else{
+                            xMax = xMin + (yMax - yMin) * prop
+                        }
+                    }
+
+                    //mand.flag = DynamicMenu.state
+
                     mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
+                    //mand.isDynamic(DynamicMenu.state)
+                    mand.isDynamic(DynamicMenu.isSelected)
                     xSegment = Pair(xMin, xMax)
                     ySegment = Pair(yMin, yMax)
 
@@ -212,6 +222,16 @@ class MainFrame : JFrame() {
                 repaint()
             }
         }
+
+        DynamicMenu.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+                //mand.isDynamic(DynamicMenu.state)
+
+                mand.isDynamic(DynamicMenu.isSelected)
+                fractalPanel.repaint()
+            }
+        })
 
         fractalPanel.getInputMap().put(KeyStroke.getKeyStroke("control A"),"foo")
 
