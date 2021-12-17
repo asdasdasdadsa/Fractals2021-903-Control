@@ -14,8 +14,6 @@ import java.awt.event.*
 import java.io.File
 import java.io.IOException
 import javax.imageio.ImageIO
-import javax.swing.*
-import javax.swing.*
 import kotlin.random.Random
 
 class MainFrame : JFrame() {
@@ -33,7 +31,7 @@ class MainFrame : JFrame() {
     init{
         defaultCloseOperation = EXIT_ON_CLOSE
         minimumSize = Dimension(600, 400)
-        val mand = Mandelbrot()
+        val mand = Mandelbrot(2)
         val painter = FractalPainter(
             mand,
             CartesianPlane(-2.0, 1.0, -1.0, 1.0),
