@@ -88,6 +88,7 @@ class MainFrame : JFrame() {
         FractalMenu.add(ColorSitemMenu)
         FractalMenu.add(TypeFracMenu)
         FractalMenu.add(DynamicMenu)
+        FractalMenu.add(SaveRationMenu)
         FractalMenu.add(ExcursionMenu)
 
         loadMenu.addMouseListener(object: MouseAdapter(){
@@ -191,15 +192,6 @@ class MainFrame : JFrame() {
                     var yMin = yScr2Crt(it.y + it.height)
                     var xMax = xScr2Crt(it.x + it.width)
                     var yMax = yScr2Crt(it.y)
-
-
-
-                    if (xMax - xMin > yMax - yMin){
-                        yMax = yMin + (xMax - xMin) / prop
-                    } else{
-                        xMax = xMin + (yMax - yMin) * prop
-                    }
-
 
                     if(SaveRationMenu.state){
                         if (xMax - xMin > yMax - yMin){
