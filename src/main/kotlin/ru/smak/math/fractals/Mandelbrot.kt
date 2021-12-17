@@ -14,6 +14,10 @@ class Mandelbrot : AlgebraicFractal{
      */
     var maxIterations = 200
 
+    var fixedIterations = 200
+
+    var changeableIterations = 200
+
     /**
      * Квадрат радиуса принадлежности
      * @see R
@@ -54,7 +58,12 @@ class Mandelbrot : AlgebraicFractal{
      */
     fun changeIterations(X1: Double, X2: Double, Y1: Double, Y2: Double, xMin: Double, yMin: Double, xMax: Double, yMax: Double) {
         val c = kotlin.math.ln((((X2 - X1) * (Y2 - Y1)) * 1.0 / ((xMax - xMin) * (yMax - yMin))).absoluteValue)
-        maxIterations += c.toInt()*30
+        changeableIterations += c.toInt()*30
+    }
+
+    fun isDynamic(flag: Boolean){
+        if (flag) maxIterations = changeableIterations
+        else maxIterations = fixedIterations
     }
 
     override fun isInSet(c: Complex): Double {

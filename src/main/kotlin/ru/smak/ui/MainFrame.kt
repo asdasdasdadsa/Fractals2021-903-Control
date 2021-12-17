@@ -40,6 +40,7 @@ class MainFrame : JFrame() {
             prop = (xMax - xMin) / (yMax - yMin)
         }
 
+
         frame = JFrame()
         menu = JMenu()
         menuBar = JMenuBar()
@@ -102,6 +103,8 @@ class MainFrame : JFrame() {
 
             }
         })
+
+
 
         OpenMenu.addMouseListener(object: MouseAdapter(){
             override fun mouseClicked(e: MouseEvent?) {
@@ -198,8 +201,25 @@ class MainFrame : JFrame() {
                         }
                     }
 
-                    if(DynamicMenu.state)
-                        mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
+
+
+       /*             if(SaveRationMenu.state){
+                        if (xMax - xMin > yMax - yMin){
+                            yMax = yMin + (xMax - xMin) / prop
+                        } else{
+                            xMax = xMin + (yMax - yMin) * prop
+                        }
+                    }
+*/
+                    //mand.flag = DynamicMenu.state
+
+//                    mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
+                    //mand.isDynamic(DynamicMenu.state)
+                    mand.isDynamic(DynamicMenu.isSelected)
+
+  //                  if(DynamicMenu.state)
+    //                    mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
+
                     xSegment = Pair(xMin, xMax)
                     ySegment = Pair(yMin, yMax)
 
@@ -208,6 +228,23 @@ class MainFrame : JFrame() {
                 repaint()
             }
         }
+
+        DynamicMenu.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+                //mand.isDynamic(DynamicMenu.state)
+                mand.isDynamic(DynamicMenu.isSelected)
+                fractalPanel.repaint()
+            }
+        })
+
+        DynamicMenu.addItemListener(object: ItemListener{
+            override fun itemStateChanged(e: ItemEvent?) {
+                mand.isDynamic(DynamicMenu.isSelected)
+                fractalPanel.repaint()
+            }
+
+        })
 
         fractalPanel.getInputMap().put(KeyStroke.getKeyStroke("control A"),"foo")
 
