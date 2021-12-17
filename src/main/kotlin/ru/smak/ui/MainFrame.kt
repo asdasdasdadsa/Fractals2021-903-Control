@@ -208,22 +208,22 @@ class MainFrame : JFrame() {
 
 
 
-       /*             if(SaveRationMenu.state){
-                        if (xMax - xMin > yMax - yMin){
-                            yMax = yMin + (xMax - xMin) / prop
-                        } else{
-                            xMax = xMin + (yMax - yMin) * prop
-                        }
-                    }
-*/
+                    /*             if(SaveRationMenu.state){
+                                     if (xMax - xMin > yMax - yMin){
+                                         yMax = yMin + (xMax - xMin) / prop
+                                     } else{
+                                         xMax = xMin + (yMax - yMin) * prop
+                                     }
+                                 }
+             */
                     //mand.flag = DynamicMenu.state
 
 //                    mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
                     //mand.isDynamic(DynamicMenu.state)
                     mand.isDynamic(DynamicMenu.isSelected)
 
-  //                  if(DynamicMenu.state)
-    //                    mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
+                    //                  if(DynamicMenu.state)
+                    //                    mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
 
                     xSegment = Pair(xMin, xMax)
                     ySegment = Pair(yMin, yMax)
@@ -240,73 +240,73 @@ class MainFrame : JFrame() {
                     isVisible = true
                 }
 
-        DynamicMenu.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
-                //mand.isDynamic(DynamicMenu.state)
-                mand.isDynamic(DynamicMenu.isSelected)
-                fractalPanel.repaint()
-            }
-        })
+                DynamicMenu.addMouseListener(object: MouseAdapter(){
+                    override fun mouseClicked(e: MouseEvent?) {
+                        super.mouseClicked(e)
+                        //mand.isDynamic(DynamicMenu.state)
+                        mand.isDynamic(DynamicMenu.isSelected)
+                        fractalPanel.repaint()
+                    }
+                })
 
-        DynamicMenu.addItemListener(object: ItemListener{
-            override fun itemStateChanged(e: ItemEvent?) {
-                mand.isDynamic(DynamicMenu.isSelected)
-                fractalPanel.repaint()
-            }
+                DynamicMenu.addItemListener(object: ItemListener{
+                    override fun itemStateChanged(e: ItemEvent?) {
+                        mand.isDynamic(DynamicMenu.isSelected)
+                        fractalPanel.repaint()
+                    }
 
-        })
+                })
 
-        fractalPanel.getInputMap().put(KeyStroke.getKeyStroke("control A"),"foo")
+                fractalPanel.getInputMap().put(KeyStroke.getKeyStroke("control A"),"foo")
 
-        fractalPanel.addKeyListener(object : KeyListener{
-            override fun keyTyped(e: KeyEvent?) {
+                fractalPanel.addKeyListener(object : KeyListener{
+                    override fun keyTyped(e: KeyEvent?) {
 
-            }
+                    }
 
-            override fun keyPressed(e: KeyEvent?) {
-            }
+                    override fun keyPressed(e: KeyEvent?) {
+                    }
 
-            override fun keyReleased(e: KeyEvent?) {
-                e?.let{
-                    if(e.keyChar=='\u001A'){
-                        if(stat.size!=1)
-                            stat.removeAt(stat.size-1)
-                        with (painter.plane){
-                            xSegment = stat[stat.size-1].first
-                            ySegment = stat[stat.size-1].second
+                    override fun keyReleased(e: KeyEvent?) {
+                        e?.let{
+                            if(e.keyChar=='\u001A'){
+                                if(stat.size!=1)
+                                    stat.removeAt(stat.size-1)
+                                with (painter.plane){
+                                    xSegment = stat[stat.size-1].first
+                                    ySegment = stat[stat.size-1].second
+                                }
+                            }
+                            repaint()
                         }
                     }
-                    repaint()
+                })
+
+
+
+                layout = GroupLayout(contentPane).apply {
+                    setHorizontalGroup(
+                        createSequentialGroup()
+                            .addGap(4)
+                            .addGroup(
+                                createParallelGroup()
+                                    .addComponent(menuBar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                                    .addComponent(fractalPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                            )
+                            .addGap(4)
+
+                    )
+
+                    setVerticalGroup(
+                        createSequentialGroup()
+                            .addGap(4)
+                            .addComponent(menuBar, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
+                            .addGap(4)
+                            .addComponent(fractalPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                            .addGap(4)
+                    )
                 }
             }
-        })
 
-
-
-        layout = GroupLayout(contentPane).apply {
-            setHorizontalGroup(
-                createSequentialGroup()
-                    .addGap(4)
-                    .addGroup(
-                        createParallelGroup()
-                            .addComponent(menuBar, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
-                            .addComponent(fractalPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
-                    )
-                    .addGap(4)
-
-            )
-
-            setVerticalGroup(
-                createSequentialGroup()
-                    .addGap(4)
-                    .addComponent(menuBar, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addGap(4)
-                    .addComponent(fractalPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
-                    .addGap(4)
-            )
+            //fun onSelectArea(r: Rectangle)
         }
-    }
-
-    //fun onSelectArea(r: Rectangle)
-}
