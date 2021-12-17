@@ -221,6 +221,8 @@ class MainFrame : JFrame() {
                     mand.isDynamic(DynamicMenu.isSelected)
                     xSegment = Pair(xMin, xMax)
                     ySegment = Pair(yMin, yMax)
+
+                    stat.add(Pair(Pair(xMin,xMax),Pair(yMin,yMax)))
                 }
                 repaint()
             }
