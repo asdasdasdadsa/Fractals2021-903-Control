@@ -11,6 +11,9 @@ import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import javax.swing.*
 import java.awt.event.*
+import java.io.File
+import java.io.IOException
+import javax.imageio.ImageIO
 import javax.swing.*
 import javax.swing.*
 import kotlin.random.Random
@@ -120,12 +123,21 @@ class MainFrame : JFrame() {
             }
         })
 
-        imageMenu.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
-
+        imageMenu.addActionListener {
+        val fileChs = JFileChooser()
+        fileChs.dialogTitle = "Choose place to save image"
+        fileChs.fileSelectionMode = JFileChooser.FILES_ONLY
+        val res = fileChs.showSaveDialog(this@MainFrame)
+        if (res == JFileChooser.APPROVE_OPTION) {
+            val im = painter.getImage()
+            val outputFile = File(fileChs.selectedFile.path + ".jpg")
+            try {
+                ImageIO.write(im, "jpg", outputFile)
+            } catch (e: IOException) {
+                e.printStackTrace()
             }
-        })
+        }
+    }
 
         ColorSitem1Menu.addMouseListener(object: MouseAdapter(){
             override fun mouseClicked(e: MouseEvent?) {
