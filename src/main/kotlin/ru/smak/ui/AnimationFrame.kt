@@ -6,7 +6,6 @@ import ru.smak.ui.painting.VideoMaker
 import ru.smak.ui.painting.fractals.FractalPainter
 import java.awt.Color
 import java.awt.Dimension
-import java.awt.Rectangle
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import java.awt.image.BufferedImage
@@ -23,7 +22,7 @@ class AnimationFrame(private val selectablePanel: SelectablePanel, private val f
     val frameTimeLbl : JLabel
     val frameTimeSpinner : JSpinner
     val frameTimeModel : SpinnerNumberModel
-    val fileChooser : JFileChooser
+
     init {
         defaultCloseOperation = EXIT_ON_CLOSE
         title = "Экскурсия"
@@ -46,18 +45,20 @@ class AnimationFrame(private val selectablePanel: SelectablePanel, private val f
         frameScroll = JScrollPane(keyFramesPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_NEVER).apply {
             preferredSize = Dimension(300, 400)
         }
-        fileChooser = JFileChooser().apply {
-            fileFilter = FileNameExtensionFilter("Видео-файлы анимации фракталов", "avi")
-        }
+
         createVideoBtn.addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent?) {
+                val fileChooser = JFileChooser().apply {
+                    fileFilter = FileNameExtensionFilter("Видео-файлы анимации фракталов", "avi")
+                }
                 fileChooser.dialogTitle = "Сохранение видео"
                 fileChooser.fileSelectionMode = JFileChooser.FILES_AND_DIRECTORIES
                 val result = fileChooser.showSaveDialog(this@AnimationFrame)
-                val videoMaker = VideoMaker(fractalPainter, selectablePanel)
-                videoMaker.secBetweenFrames = 2
+                val pathToFile = fileChooser.selectedFile.absolutePath + ".${(fileChooser.fileFilter as FileNameExtensionFilter).extensions[0]}"
+                val videoMaker = VideoMaker(fractalPainter, selectablePanel, pathToFile)
+                videoMaker.secBetweenFrames = frameTimeSpinner.value as Int
                 videoMaker.addKeyFrames(keyFramesPanel.keyFrames)
-                videoMaker.createFrames()
+                videoMaker.createVideo()
             }
         })
 
