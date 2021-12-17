@@ -7,8 +7,8 @@ import org.kotlinmath.ln
 import ru.smak.math.mod2
 import kotlin.math.absoluteValue
 
-class Mandelbrot(val deg:Int) : AlgebraicFractal{
-
+class Mandelbrot() : AlgebraicFractal{
+    var deg:Int=2
     /**
      * Количество итераций, которые необходимы для проверки принедлежности
      * точки множеству Мандельброта
