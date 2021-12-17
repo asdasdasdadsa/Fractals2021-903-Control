@@ -15,11 +15,11 @@ import javax.swing.*
 import javax.swing.*
 import kotlin.random.Random
 
+
 class MainFrame : JFrame() {
 
     val fractalPanel: SelectablePanel
     var frame: JFrame //= null
-    var frame2: JFrame
     val menu: JMenu
     val menuBar: JMenuBar
 
@@ -42,7 +42,6 @@ class MainFrame : JFrame() {
 
 
         frame = JFrame()
-        frame2 = JFrame()
         menu = JMenu()
         menuBar = JMenuBar()
         menuBar.setBounds(0, 0, 350, 30)
@@ -88,6 +87,7 @@ class MainFrame : JFrame() {
         FractalMenu.add(ColorSitemMenu)
         FractalMenu.add(TypeFracMenu)
         FractalMenu.add(DynamicMenu)
+        FractalMenu.add(SaveRationMenu)
         FractalMenu.add(ExcursionMenu)
 
         loadMenu.addMouseListener(object: MouseAdapter(){
@@ -193,14 +193,6 @@ class MainFrame : JFrame() {
                     var yMax = yScr2Crt(it.y)
 
 
-
-                    if (xMax - xMin > yMax - yMin){
-                        yMax = yMin + (xMax - xMin) / prop
-                    } else{
-                        xMax = xMin + (yMax - yMin) * prop
-                    }
-
-
                     if(SaveRationMenu.state){
                         if (xMax - xMin > yMax - yMin){
                             yMax = yMin + (xMax - xMin) / prop
@@ -209,11 +201,25 @@ class MainFrame : JFrame() {
                         }
                     }
 
+
+
+       /*             if(SaveRationMenu.state){
+                        if (xMax - xMin > yMax - yMin){
+                            yMax = yMin + (xMax - xMin) / prop
+                        } else{
+                            xMax = xMin + (yMax - yMin) * prop
+                        }
+                    }
+*/
                     //mand.flag = DynamicMenu.state
 
-                    mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
+//                    mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
                     //mand.isDynamic(DynamicMenu.state)
                     mand.isDynamic(DynamicMenu.isSelected)
+
+  //                  if(DynamicMenu.state)
+    //                    mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
+
                     xSegment = Pair(xMin, xMax)
                     ySegment = Pair(yMin, yMax)
 
