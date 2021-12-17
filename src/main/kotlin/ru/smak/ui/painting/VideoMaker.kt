@@ -28,21 +28,23 @@ class VideoMaker(private val painter: FractalPainter, private val selectablePane
         val writer = ToolFactory.makeWriter(outputFilePath)
         writer.addVideoStream(0,0, ICodec.ID.CODEC_ID_MPEG4, painter.plane.width, painter.plane.height)
         //val encoder = AWTSequenceEncoder.createSequenceEncoder(File(outputFilePath), FrameRate)
-        val firstXmin = keyFrames.get(0).second.xMin
-        val firstXmax = keyFrames.get(0).second.xMax
-        val firstYmin = keyFrames.get(0).second.yMin
-        val firstYmax = keyFrames.get(0).second.yMax
+
         var frameNum = 0
         keyFrames.forEachIndexed{ i, kf ->
             if (i != keyFrames.size - 1) {
-                val xMaxRateOfChange = (kf.second.xMax - keyFrames.get(i + 1).second.xMax) / CountOfFrames
-                val xMinRateOfChange = abs(kf.second.xMin - keyFrames.get(i + 1).second.xMin) / CountOfFrames
-                val yMaxRateOfChange = (kf.second.yMax - keyFrames.get(i + 1).second.yMax) / CountOfFrames
-                val yMinRateOfChange = abs(kf.second.yMin - keyFrames.get(i + 1).second.yMin) / CountOfFrames
+                val currXmin = kf.second.xMin
+                val currXmax = kf.second.xMax
+                val currYmin = kf.second.yMin
+                val currYmax = kf.second.yMax
+                val xMaxRateOfChange = (currXmax- keyFrames.get(i + 1).second.xMax) / CountOfFrames
+                val xMinRateOfChange = abs(currXmin - keyFrames.get(i + 1).second.xMin) / CountOfFrames
+                val yMaxRateOfChange = (currYmax - keyFrames.get(i + 1).second.yMax) / CountOfFrames
+                val yMinRateOfChange = abs(currYmin - keyFrames.get(i + 1).second.yMin) / CountOfFrames
                 val _kf = kf
+                var subFrameNum = 0
                 while (frameNum <= CountOfFrames * (i+1)) {
-                    _kf.second.xSegment = Pair( firstXmin + frameNum * xMinRateOfChange, firstXmax - frameNum * xMaxRateOfChange)
-                    _kf.second.ySegment = Pair(firstYmin + frameNum * yMinRateOfChange,firstYmax - frameNum * yMaxRateOfChange)
+                    _kf.second.xSegment = Pair( currXmin + subFrameNum * xMinRateOfChange, currXmax - subFrameNum * xMaxRateOfChange)
+                    _kf.second.ySegment = Pair( currYmin + subFrameNum * yMinRateOfChange, currYmax - subFrameNum * yMaxRateOfChange)
                     val _painter = painter
                     _painter.plane.xSegment = _kf.second.xSegment
                     _painter.plane.ySegment = _kf.second.ySegment
@@ -54,6 +56,7 @@ class VideoMaker(private val painter: FractalPainter, private val selectablePane
                     selectablePanel.graphics.drawImage(bufImg,0,0,null)
                     writer.encodeVideo(0, convBufImg, DEFAULT_TIME_UNIT.convert(frameNum * frameTime,TimeUnit.MILLISECONDS), DEFAULT_TIME_UNIT )
                     frameNum++
+                    subFrameNum++
                 }
             }
         }
