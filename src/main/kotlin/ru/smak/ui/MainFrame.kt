@@ -227,10 +227,17 @@ class MainFrame : JFrame() {
             override fun mouseClicked(e: MouseEvent?) {
                 super.mouseClicked(e)
                 //mand.isDynamic(DynamicMenu.state)
-
                 mand.isDynamic(DynamicMenu.isSelected)
                 fractalPanel.repaint()
             }
+        })
+
+        DynamicMenu.addItemListener(object: ItemListener{
+            override fun itemStateChanged(e: ItemEvent?) {
+                mand.isDynamic(DynamicMenu.isSelected)
+                fractalPanel.repaint()
+            }
+
         })
 
         fractalPanel.getInputMap().put(KeyStroke.getKeyStroke("control A"),"foo")
