@@ -1,12 +1,13 @@
 package ru.smak.math.fractals
 
 import org.kotlinmath.Complex
+import org.kotlinmath.ONE
 import org.kotlinmath.ZERO
 import org.kotlinmath.ln
 import ru.smak.math.mod2
 import kotlin.math.absoluteValue
 
-class Mandelbrot : AlgebraicFractal{
+class Mandelbrot(val deg:Int) : AlgebraicFractal{
 
     /**
      * Количество итераций, которые необходимы для проверки принедлежности
@@ -69,7 +70,10 @@ class Mandelbrot : AlgebraicFractal{
     override fun isInSet(c: Complex): Double {
         var z = ZERO
         for(i in 0 until maxIterations){
-            z = z * z + c
+            var a = ONE
+            for( i in 1..deg)
+                a*=z
+            z = a + c
             if (z.mod2 > R2) return i.toDouble() / maxIterations
         }
         return if (colorizedSet) z.mod else 1.0

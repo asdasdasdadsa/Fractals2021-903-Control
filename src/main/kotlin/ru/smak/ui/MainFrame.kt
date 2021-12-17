@@ -1,5 +1,5 @@
 package ru.smak.ui
-//
+
 import ru.smak.math.fractals.Mandelbrot
 import ru.smak.ui.painting.CartesianPlane
 import ru.smak.ui.painting.SelectablePanel
@@ -208,6 +208,17 @@ class MainFrame : JFrame() {
                     mand.isDynamic(DynamicMenu.isSelected)
                     xSegment = Pair(xMin, xMax)
                     ySegment = Pair(yMin, yMax)
+                }
+                repaint()
+            }
+            addMoveListener {
+                with (painter.plane){
+                    val xMin = xMin + xScr2Crt(0) -xScr2Crt(it.first)
+                    val yMin = yMin + yScr2Crt(0) - yScr2Crt(it.second)
+                    val xMax = xMax + xScr2Crt(0) -xScr2Crt(it.first)
+                    val yMax = yMax + yScr2Crt(0) -yScr2Crt(it.second)
+                    xSegment = Pair(xMin, xMax)
+                    ySegment = Pair(yMin, yMax)
 
                     stat.add(Pair(Pair(xMin,xMax),Pair(yMin,yMax)))
                 }
@@ -267,9 +278,7 @@ class MainFrame : JFrame() {
                             .addComponent(fractalPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                     )
                     .addGap(4)
-
             )
-
             setVerticalGroup(
                 createSequentialGroup()
                     .addGap(4)
