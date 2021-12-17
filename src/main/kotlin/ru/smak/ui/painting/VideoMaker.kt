@@ -41,8 +41,8 @@ class VideoMaker(private val painter: FractalPainter, private val selectablePane
                 val yMinRateOfChange = abs(kf.second.yMin - keyFrames.get(i + 1).second.yMin) / CountOfFrames
                 val _kf = kf
                 while (frameNum <= CountOfFrames * (i+1)) {
-                    _kf.second.xSegment = Pair( firstXmin + frameNum*xMinRateOfChange, firstXmax - frameNum * xMaxRateOfChange)
-                    _kf.second.ySegment = Pair(firstYmin + yMinRateOfChange,firstYmax - frameNum * yMaxRateOfChange)
+                    _kf.second.xSegment = Pair( firstXmin + frameNum * xMinRateOfChange, firstXmax - frameNum * xMaxRateOfChange)
+                    _kf.second.ySegment = Pair(firstYmin + frameNum * yMinRateOfChange,firstYmax - frameNum * yMaxRateOfChange)
                     val _painter = painter
                     _painter.plane.xSegment = _kf.second.xSegment
                     _painter.plane.ySegment = _kf.second.ySegment
