@@ -1,5 +1,5 @@
 package ru.smak.ui
-
+//
 import ru.smak.math.fractals.Mandelbrot
 import ru.smak.ui.painting.CartesianPlane
 import ru.smak.ui.painting.SelectablePanel
