@@ -24,8 +24,8 @@ class FractalPainter(
         set(value) {
             plane.pixelSize = value
         }
-
-    private val threadCount = 16
+//
+    private val threadCount = 16*4
     private val taskPerThreadCount = 5
     private var fracService = Executors.newFixedThreadPool(threadCount)
 
