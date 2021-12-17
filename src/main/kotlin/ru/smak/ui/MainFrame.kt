@@ -1,5 +1,5 @@
 package ru.smak.ui
-//
+
 import ru.smak.math.fractals.Mandelbrot
 import ru.smak.ui.painting.CartesianPlane
 import ru.smak.ui.painting.SelectablePanel
@@ -91,6 +91,7 @@ class MainFrame : JFrame() {
         FractalMenu.add(ColorSitemMenu)
         FractalMenu.add(TypeFracMenu)
         FractalMenu.add(DynamicMenu)
+        FractalMenu.add(SaveRationMenu)
         FractalMenu.add(ExcursionMenu)
 
         loadMenu.addMouseListener(object: MouseAdapter(){
@@ -204,15 +205,6 @@ class MainFrame : JFrame() {
                     var xMax = xScr2Crt(it.x + it.width)
                     var yMax = yScr2Crt(it.y)
 
-
-
-                    if (xMax - xMin > yMax - yMin){
-                        yMax = yMin + (xMax - xMin) / prop
-                    } else{
-                        xMax = xMin + (yMax - yMin) * prop
-                    }
-
-
                     if(SaveRationMenu.state){
                         if (xMax - xMin > yMax - yMin){
                             yMax = yMin + (xMax - xMin) / prop
@@ -226,6 +218,17 @@ class MainFrame : JFrame() {
                     mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
                     //mand.isDynamic(DynamicMenu.state)
                     mand.isDynamic(DynamicMenu.isSelected)
+                    xSegment = Pair(xMin, xMax)
+                    ySegment = Pair(yMin, yMax)
+                }
+                repaint()
+            }
+            addMoveListener {
+                with (painter.plane){
+                    val xMin = xMin + xScr2Crt(0) -xScr2Crt(it.first)
+                    val yMin = yMin + yScr2Crt(0) - yScr2Crt(it.second)
+                    val xMax = xMax + xScr2Crt(0) -xScr2Crt(it.first)
+                    val yMax = yMax + yScr2Crt(0) -yScr2Crt(it.second)
                     xSegment = Pair(xMin, xMax)
                     ySegment = Pair(yMin, yMax)
 
@@ -287,9 +290,7 @@ class MainFrame : JFrame() {
                             .addComponent(fractalPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                     )
                     .addGap(4)
-
             )
-
             setVerticalGroup(
                 createSequentialGroup()
                     .addGap(4)
