@@ -38,10 +38,10 @@ class MainFrame : JFrame() {
             }
             addMoveListener {
                 with (painter.plane){
-                    val xMin = 2*xMin + xScr2Crt(it.first)
-                    val yMin = 2*yMin + yScr2Crt(it.second)
-                    val xMax = xMax + xMin + xScr2Crt(it.first)
-                    val yMax = yMax + yMin + yScr2Crt(it.second)
+                    val xMin = xMin + xScr2Crt(0) -xScr2Crt(it.first)
+                    val yMin = yMin + yScr2Crt(0) - yScr2Crt(it.second)
+                    val xMax = xMax + xScr2Crt(0) -xScr2Crt(it.first)
+                    val yMax = yMax + yScr2Crt(0) -yScr2Crt(it.second)
                     xSegment = Pair(xMin, xMax)
                     ySegment = Pair(yMin, yMax)
                 }
