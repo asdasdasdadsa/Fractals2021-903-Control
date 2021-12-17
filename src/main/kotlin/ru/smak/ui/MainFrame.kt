@@ -236,9 +236,11 @@ class MainFrame : JFrame() {
             override fun mouseClicked(e: MouseEvent?) {
                 super.mouseClicked(e)
                 SecondFrame().apply {
-                    Julia.t=org.kotlinmath.DefaultComplex(painter.plane.xScr2Crt(e!!.x),painter.plane.yScr2Crt(e.y))
+                    Julia.t = org.kotlinmath.DefaultComplex(painter.plane.xScr2Crt(e!!.x), painter.plane.yScr2Crt(e.y))
                     isVisible = true
                 }
+            }
+            })
 
         DynamicMenu.addMouseListener(object: MouseAdapter(){
             override fun mouseClicked(e: MouseEvent?) {
