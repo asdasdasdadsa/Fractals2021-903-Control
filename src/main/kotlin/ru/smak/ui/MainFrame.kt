@@ -129,7 +129,7 @@ class MainFrame : JFrame() {
         fileChs.fileSelectionMode = JFileChooser.FILES_ONLY
         val res = fileChs.showSaveDialog(this@MainFrame)
         if (res == JFileChooser.APPROVE_OPTION) {
-            val im = painter.getImage()
+            val im = painter.image
             val outputFile = File(fileChs.selectedFile.path + ".jpg")
             try {
                 ImageIO.write(im, "jpg", outputFile)
