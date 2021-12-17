@@ -20,7 +20,6 @@ import javax.swing.*
 import javax.swing.*
 import kotlin.random.Random
 
-
 class MainFrame : JFrame() {
 
     val fractalPanel: SelectablePanel
@@ -72,9 +71,10 @@ class MainFrame : JFrame() {
         val ColorSitemMenu = JMenu("Цветовая схема")
         //val ColorSitem1Menu = JRadioButtonMenuItem("Чёрно-белый") // вариант с кнопкой
         val ColorSitem1Menu = JMenuItem("Чёрно-белый")
-        val ColorSitem2Menu = JMenuItem("Сине-зеленый")
-        val ColorSitem3Menu = JMenuItem("Красно-зелёный")
-        val ColorSitem4Menu = JMenuItem("Красно-синий")
+        val ColorSitem2Menu = JMenuItem("Розовый")
+        val ColorSitem3Menu = JMenuItem("Желтый")
+        val ColorSitem4Menu = JMenuItem("Красноый")
+        val ColorSitem5Menu = JMenuItem("Синий")
         val TypeFracMenu = JMenu("Тип фрактала")
         val Type2 = JMenuItem("Множество Мандельброта 2 степени")
         val Type3 = JMenuItem("Множество Мандельброта 3 степени")
@@ -87,6 +87,7 @@ class MainFrame : JFrame() {
         ColorSitemMenu.add(ColorSitem2Menu)
         ColorSitemMenu.add(ColorSitem3Menu)
         ColorSitemMenu.add(ColorSitem4Menu)
+        ColorSitemMenu.add(ColorSitem5Menu)
         TypeFracMenu.add(Type2)
         TypeFracMenu.add(Type3)
         TypeFracMenu.add(Type4)
@@ -97,99 +98,105 @@ class MainFrame : JFrame() {
         FractalMenu.add(SaveRationMenu)
         FractalMenu.add(ExcursionMenu)
 
-        loadMenu.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
+        loadMenu.addActionListener{
+            it?.let {
 
             }
-        })
+            repaint()
 
-        SourceAreaMenu.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
+        }
 
-            }
-        })
-
-
-
-        OpenMenu.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
+        SourceAreaMenu.addActionListener{
+            it?.let {
 
             }
-        })
+            repaint()
+        }
 
-        fracMenu.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
 
-            }
-        })
 
-        imageMenu.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
+        OpenMenu.addActionListener{
+            it?.let {
 
             }
-        })
+            repaint()
+        }
 
-        ColorSitem1Menu.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
-
-            }
-        })
-        ColorSitem2Menu.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
+        fracMenu.addActionListener{
+            it?.let {
 
             }
-        })
-        ColorSitem3Menu.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
+            repaint()
+        }
+
+        imageMenu.addActionListener{
+            it?.let {
 
             }
-        })
-        ColorSitem4Menu.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
+            repaint()
+        }
+
+        ColorSitem1Menu.addActionListener{
+            it?.let {
+                painter.colorFunction = colorizers[0]
+            }
+            repaint()
+        }
+        ColorSitem2Menu.addActionListener{
+            it?.let {
+                painter.colorFunction = colorizers[1]
+            }
+            repaint()
+        }
+        ColorSitem3Menu.addActionListener{
+            it?.let {
+                painter.colorFunction = colorizers[2]
+            }
+            repaint()
+        }
+        ColorSitem4Menu.addActionListener{
+            it?.let {
+                painter.colorFunction = colorizers[3]
+            }
+            repaint()
+        }
+        ColorSitem5Menu.addActionListener{
+            it?.let {
+                painter.colorFunction = colorizers[4]
+            }
+            repaint()
+        }
+        Type2.addActionListener{
+            it?.let {
+                mand.deg = 2
+            }
+            repaint()
+        }
+        Type3.addActionListener{
+            it?.let {
+                mand.deg = 3
+            }
+            repaint()
+        }
+        Type4.addActionListener{
+            it?.let {
+                mand.deg = 4
+            }
+            repaint()
+        }
+        Type5.addActionListener{
+            it?.let {
+                mand.deg = 5
+            }
+            repaint()
+        }
+
+        ExcursionMenu.addActionListener{
+            it?.let {
 
             }
-        })
-
-        Type2.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
-
-            }
-        })
-        Type3.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
-
-            }
-        })
-        Type4.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
-
-            }
-        })
-        Type5.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
-
-            }
-        })
-
-        ExcursionMenu.addMouseListener(object: MouseAdapter(){
-            override fun mouseClicked(e: MouseEvent?) {
-                super.mouseClicked(e)
-
-            }
-        })
+            repaint()
+        }
         fractalPanel = SelectablePanel(painter).apply {
             background = Color.WHITE
             addSelectListener{
@@ -198,7 +205,6 @@ class MainFrame : JFrame() {
                     var yMin = yScr2Crt(it.y + it.height)
                     var xMax = xScr2Crt(it.x + it.width)
                     var yMax = yScr2Crt(it.y)
-
 
                     if(SaveRationMenu.state){
                         if (xMax - xMin > yMax - yMin){
@@ -213,6 +219,17 @@ class MainFrame : JFrame() {
                     mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
                     //mand.isDynamic(DynamicMenu.state)
                     mand.isDynamic(DynamicMenu.isSelected)
+                    xSegment = Pair(xMin, xMax)
+                    ySegment = Pair(yMin, yMax)
+                }
+                repaint()
+            }
+            addMoveListener {
+                with (painter.plane){
+                    val xMin = xMin + xScr2Crt(0) -xScr2Crt(it.first)
+                    val yMin = yMin + yScr2Crt(0) - yScr2Crt(it.second)
+                    val xMax = xMax + xScr2Crt(0) -xScr2Crt(it.first)
+                    val yMax = yMax + yScr2Crt(0) -yScr2Crt(it.second)
                     xSegment = Pair(xMin, xMax)
                     ySegment = Pair(yMin, yMax)
 
@@ -274,8 +291,6 @@ class MainFrame : JFrame() {
             }
         })
 
-
-
         layout = GroupLayout(contentPane).apply {
             setHorizontalGroup(
                 createSequentialGroup()
@@ -286,9 +301,7 @@ class MainFrame : JFrame() {
                             .addComponent(fractalPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                     )
                     .addGap(4)
-
             )
-
             setVerticalGroup(
                 createSequentialGroup()
                     .addGap(4)
