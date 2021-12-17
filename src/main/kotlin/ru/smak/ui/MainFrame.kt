@@ -1,5 +1,6 @@
 package ru.smak.ui
 
+import ru.smak.math.fractals.Julia
 import ru.smak.math.fractals.Mandelbrot
 import ru.smak.ui.painting.CartesianPlane
 import ru.smak.ui.painting.SelectablePanel
@@ -7,6 +8,10 @@ import ru.smak.ui.painting.fractals.FractalPainter
 import ru.smak.ui.painting.fractals.colorizers
 import java.awt.Color
 import java.awt.Dimension
+import java.awt.Rectangle
+import java.awt.event.KeyEvent
+import java.awt.event.KeyListener
+import java.awt.SystemColor.window
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import javax.swing.*
@@ -26,7 +31,6 @@ class MainFrame : JFrame() {
     val stat = mutableListOf(Pair(Pair(-2.0,1.0),Pair(-1.0,1.0)) )
 
     var prop = 0.0
-
 
     init{
         defaultCloseOperation = EXIT_ON_CLOSE
@@ -235,6 +239,16 @@ class MainFrame : JFrame() {
             }
         }
 
+        fractalPanel.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+                SecondFrame().apply {
+                    Julia.t = org.kotlinmath.DefaultComplex(painter.plane.xScr2Crt(e!!.x), painter.plane.yScr2Crt(e.y))
+                    isVisible = true
+                }
+            }
+            })
+
         DynamicMenu.addMouseListener(object: MouseAdapter(){
             override fun mouseClicked(e: MouseEvent?) {
                 super.mouseClicked(e)
@@ -249,6 +263,7 @@ class MainFrame : JFrame() {
                 mand.isDynamic(DynamicMenu.isSelected)
                 fractalPanel.repaint()
             }
+
         })
 
         fractalPanel.getInputMap().put(KeyStroke.getKeyStroke("control A"),"foo")
@@ -257,7 +272,7 @@ class MainFrame : JFrame() {
             override fun keyTyped(e: KeyEvent?) {
 
             }
-
+//ю
             override fun keyPressed(e: KeyEvent?) {
             }
 
