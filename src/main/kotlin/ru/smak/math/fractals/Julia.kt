@@ -18,7 +18,7 @@ class Julia: AlgebraicFractal {
     companion object {
         var t=org.kotlinmath.DefaultComplex(0.0,0.0)
     }
-
+//
     /**
      * Радиус окрестности, где должна оказаться точка после maxIterations итераций,
      * чтобы считаться принадлежащей множеству Мандельброта
