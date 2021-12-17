@@ -1,12 +1,12 @@
 package ru.smak.ui.painting
 
+import ru.smak.math.fractals.Mandelbrot
 import ru.smak.ui.GraphicsPanel
+import ru.smak.ui.painting.fractals.FractalPainter
 import java.awt.Color
 import java.awt.Point
 import java.awt.Rectangle
-import java.awt.event.MouseAdapter
-import java.awt.event.MouseEvent
-import java.awt.event.MouseMotionAdapter
+import java.awt.event.*
 import kotlin.math.abs
 import kotlin.math.min
 
@@ -17,6 +17,7 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
 
     private val selectListener: MutableList<(Rectangle)->Unit> = mutableListOf()
     private val moveListener: MutableList<(Pair<Int, Int>)->Unit> = mutableListOf()
+
 
     fun addSelectListener(l: (Rectangle)->Unit){
         selectListener.add(l)
@@ -29,6 +30,7 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
     fun removeSelectListener(l: (Rectangle)->Unit){
         selectListener.remove(l)
     }
+
 
     init {
         addMouseListener(object : MouseAdapter(){
@@ -60,7 +62,6 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
                 pt1 = null
                 pt2 = null
             }
-
         })
 
         addMouseMotionListener(object : MouseMotionAdapter(){
@@ -79,7 +80,6 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
                     setPaintMode()
                 }
             }
-
         })
     }
 }
