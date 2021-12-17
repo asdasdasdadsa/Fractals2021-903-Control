@@ -21,7 +21,7 @@ import kotlin.random.Random
 
 class MainFrame : JFrame() {
 
-    val fractalPanel: SelectablePanel
+    var fractalPanel: SelectablePanel
     var frame: JFrame //= null
     var frame2: JFrame
     val menu: JMenu
@@ -34,7 +34,7 @@ class MainFrame : JFrame() {
     init{
         defaultCloseOperation = EXIT_ON_CLOSE
         minimumSize = Dimension(600, 400)
-        val mand = Mandelbrot(2)
+        val mand = Mandelbrot()
         val painter = FractalPainter(
             mand,
             CartesianPlane(-2.0, 1.0, -1.0, 1.0),
@@ -157,10 +157,11 @@ class MainFrame : JFrame() {
 
             }
         })
-        ColorSitem3Menu.addMouseListener(object: MouseAdapter(){
+        ColorSitem3Menu.addMouseListener(object: MouseAdapter() {
             override fun mouseClicked(e: MouseEvent?) {
                 super.mouseClicked(e)
-
+            }
+        })
         ColorSitem1Menu.addActionListener{
             it?.let {
                 painter.colorFunction = colorizers[0]
