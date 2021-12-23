@@ -300,7 +300,7 @@ class MainFrame : JFrame() {
             override fun keyTyped(e: KeyEvent?) {
 
             }
-//ю
+
             override fun keyPressed(e: KeyEvent?) {
             }
 
