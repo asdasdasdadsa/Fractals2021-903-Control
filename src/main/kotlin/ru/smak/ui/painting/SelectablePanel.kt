@@ -30,7 +30,7 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
     fun removeSelectListener(l: (Rectangle)->Unit){
         selectListener.remove(l)
     }
-
+    var k:Int=0
 
     init {
         addMouseListener(object : MouseAdapter(){
@@ -40,6 +40,8 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
                     setXORMode(Color.WHITE)
                     fillRect(2*width, 0, 1, 1)
                     setPaintMode()
+                    e?.let { if(e.button==1) k=1
+                    else k=0}
                 }
                 pt1 = e?.point
             }
@@ -70,11 +72,13 @@ class SelectablePanel(vararg painters: Painter) : GraphicsPanel(*painters){
                     setXORMode(Color.WHITE)
                     pt1?.let { pt ->
                         pt2?.let{ pt2 ->
-                            drawRect(min(pt.x,pt2.x),min(pt.y,pt2.y), abs(pt2.x - pt.x),abs(pt2.y-pt.y))
+                            if(k==1)
+                                drawRect(min(pt.x,pt2.x),min(pt.y,pt2.y), abs(pt2.x - pt.x),abs(pt2.y-pt.y))
                         }
                         pt2 = e?.point
                         e?.let { e ->
-                            drawRect(min(pt.x,e.x), min(pt.y,e.y), abs(e.x - pt.x), abs(e.y-pt.y))
+                            if(k==1)
+                                drawRect(min(pt.x,e.x), min(pt.y,e.y), abs(e.x - pt.x), abs(e.y-pt.y))
                         }
                     }
                     setPaintMode()
