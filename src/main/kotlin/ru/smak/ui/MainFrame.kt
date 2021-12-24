@@ -38,7 +38,6 @@ class MainFrame : JFrame() {
             mand,
             CartesianPlane(-2.0, 1.0, -1.0, 1.0),
             colorizers[Random.nextInt(colorizers.size)])
-
         with(painter.plane){
             prop = (xMax - xMin) / (yMax - yMin)
         }
@@ -106,7 +105,10 @@ class MainFrame : JFrame() {
 
         SourceAreaMenu.addActionListener{
             it?.let {
-
+                with (painter.plane) {
+                    xSegment = Pair(-2.0, 1.0)
+                    ySegment = Pair(-1.0, 1.0)
+                }
             }
             repaint()
         }
@@ -279,7 +281,7 @@ class MainFrame : JFrame() {
         fractalPanel.addMouseListener(object: MouseAdapter(){
             override fun mouseClicked(e: MouseEvent?) {
                 super.mouseClicked(e)
-                SecondFrame().apply {
+                SecondFrame(painter.colorFunction).apply {
                     Julia.t = org.kotlinmath.DefaultComplex(painter.plane.xScr2Crt(e!!.x), painter.plane.yScr2Crt(e.y))
                     isVisible = true
                 }
@@ -309,7 +311,7 @@ class MainFrame : JFrame() {
             override fun keyTyped(e: KeyEvent?) {
 
             }
-//ю
+
             override fun keyPressed(e: KeyEvent?) {
             }
 
