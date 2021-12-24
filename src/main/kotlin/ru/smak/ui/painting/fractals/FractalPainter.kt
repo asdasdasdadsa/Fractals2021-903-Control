@@ -53,9 +53,7 @@ class FractalPainter(
     override fun paint(g: Graphics) {
         with(plane){
             if (list.size!=0){
-               for (i in 0 until list.size){
-                list.removeAt(i)
-                }
+                list.clear()
             }
             if (width <= 0 || height <= 0) return
             if (!(fracService.isShutdown || fracService.isTerminated)) {

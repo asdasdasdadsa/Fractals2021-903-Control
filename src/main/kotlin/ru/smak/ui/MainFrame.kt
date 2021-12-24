@@ -107,7 +107,10 @@ class MainFrame : JFrame() {
 
         SourceAreaMenu.addActionListener{
             it?.let {
-
+                with (painter.plane) {
+                    xSegment = Pair(-2.0, 1.0)
+                    ySegment = Pair(-1.0, 1.0)
+                }
             }
             repaint()
         }
