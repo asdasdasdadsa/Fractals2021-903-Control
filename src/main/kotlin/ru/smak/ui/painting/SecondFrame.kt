@@ -33,7 +33,8 @@ class SecondFrame(i: (Double) -> Color) : JFrame() {
         val painter = FractalPainter(
             Julia(),
             CartesianPlane(-1.0, 1.0, -1.0, 1.0),
-            colorizers[Random.nextInt(colorizers.size)])
+            i
+        )
 
         fractalPanel = SelectablePanel(painter).apply {
             background = Color.WHITE
