@@ -17,10 +17,11 @@ import java.awt.event.MouseEvent
 import javax.swing.GroupLayout
 import javax.swing.JFrame
 import javax.swing.KeyStroke
+import javax.swing.JMenuItem
 import kotlin.random.Random
 
 
-class SecondFrame : JFrame() {
+class SecondFrame(i: (Double) -> Color) : JFrame() {
 
     val fractalPanel: SelectablePanel
 
@@ -32,7 +33,8 @@ class SecondFrame : JFrame() {
         val painter = FractalPainter(
             Julia(),
             CartesianPlane(-1.0, 1.0, -1.0, 1.0),
-            colorizers[Random.nextInt(colorizers.size)])
+            i
+        )
 
         fractalPanel = SelectablePanel(painter).apply {
             background = Color.WHITE
