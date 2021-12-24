@@ -26,7 +26,7 @@ class MainFrame : JFrame() {
     var frame2: JFrame
     val menu: JMenu
     val menuBar: JMenuBar
-
+    val animFrame : AnimationFrame
     val stat = mutableListOf(Pair(Pair(-2.0,1.0),Pair(-1.0,1.0)) )
 
     var prop = 0.0
@@ -220,12 +220,7 @@ class MainFrame : JFrame() {
             repaint()
         }
 
-        ExcursionMenu.addActionListener{
-            it?.let {
 
-            }
-            repaint()
-        }
         fractalPanel = SelectablePanel(painter).apply {
             background = Color.WHITE
             addSelectListener{
@@ -268,6 +263,13 @@ class MainFrame : JFrame() {
                 }
                 repaint()
             }
+        }
+        animFrame = AnimationFrame(painter)
+        ExcursionMenu.addActionListener{
+            it?.let {
+                animFrame.isVisible = true
+            }
+            repaint()
         }
 
         fractalPanel.addMouseListener(object: MouseAdapter(){

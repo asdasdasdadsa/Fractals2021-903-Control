@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage
 import javax.swing.*
 import javax.swing.filechooser.FileNameExtensionFilter
 
-class AnimationFrame(private val selectablePanel: SelectablePanel, private val fractalPainter: FractalPainter) : JFrame() {
+class AnimationFrame( private val painter: FractalPainter) : JFrame() {
     val ctrlPanel : JPanel
     val kfLabel : JLabel
     val frameScroll : JScrollPane
@@ -22,9 +22,58 @@ class AnimationFrame(private val selectablePanel: SelectablePanel, private val f
     val frameTimeLbl : JLabel
     val frameTimeSpinner : JSpinner
     val frameTimeModel : SpinnerNumberModel
+    var prop = 0.0
 
     init {
-        defaultCloseOperation = EXIT_ON_CLOSE
+
+        with(painter.plane){
+            prop = (xMax - xMin) / (yMax - yMin)
+        }
+
+    val fracPanel = SelectablePanel(painter).apply {
+        background = Color.WHITE
+        addSelectListener {
+            with(painter.plane) {
+                var xMin = xScr2Crt(it.x)
+                var yMin = yScr2Crt(it.y + it.height)
+                var xMax = xScr2Crt(it.x + it.width)
+                var yMax = yScr2Crt(it.y)
+
+                /*if(SaveRationMenu.state){
+                        if (xMax - xMin > yMax - yMin){
+                            yMax = yMin + (xMax - xMin) / prop
+                        } else{
+                            xMax = xMin + (yMax - yMin) * prop
+                        }
+                    }*/
+
+                //mand.flag = DynamicMenu.state
+
+                /*mand.changeIterations(xSegment.first, xSegment.second, ySegment.first, ySegment.second, xMin, yMin, xMax, yMax)
+                    //mand.isDynamic(DynamicMenu.state)
+                    mand.isDynamic(DynamicMenu.isSelected)*/
+                    xSegment = Pair(xMin, xMax)
+                    ySegment = Pair(yMin, yMax)
+
+                    //stat.add(Pair(Pair(xMin,xMax), Pair(yMin,yMax)))
+                }
+                repaint()
+            }
+            addMoveListener {
+                with(painter.plane) {
+                    val xMin = xMin + xScr2Crt(0) - xScr2Crt(it.first)
+                    val yMin = yMin + yScr2Crt(0) - yScr2Crt(it.second)
+                    val xMax = xMax + xScr2Crt(0) - xScr2Crt(it.first)
+                    val yMax = yMax + yScr2Crt(0) - yScr2Crt(it.second)
+                    xSegment = Pair(xMin, xMax)
+                    ySegment = Pair(yMin, yMax)
+
+                    // stat.add(Pair(Pair(xMin,xMax), Pair(yMin,yMax)))
+                        }
+                    repaint()
+                }
+            }
+        defaultCloseOperation = DISPOSE_ON_CLOSE
         title = "Экскурсия"
         minimumSize = Dimension(1200, 700)
         kfLabel = JLabel().apply {
@@ -55,7 +104,7 @@ class AnimationFrame(private val selectablePanel: SelectablePanel, private val f
                 fileChooser.fileSelectionMode = JFileChooser.FILES_AND_DIRECTORIES
                 val result = fileChooser.showSaveDialog(this@AnimationFrame)
                 val pathToFile = fileChooser.selectedFile.absolutePath + ".${(fileChooser.fileFilter as FileNameExtensionFilter).extensions[0]}"
-                val videoMaker = VideoMaker(fractalPainter, selectablePanel, pathToFile)
+                val videoMaker = VideoMaker(painter, fracPanel, pathToFile)
                 videoMaker.secBetweenFrames = frameTimeSpinner.value as Int
                 videoMaker.addKeyFrames(keyFramesPanel.keyFrames)
                 videoMaker.createVideo()
@@ -68,10 +117,10 @@ class AnimationFrame(private val selectablePanel: SelectablePanel, private val f
 
         addKeyFrame.addMouseListener(object : MouseAdapter() {
             override fun mouseClicked(e: MouseEvent?) {
-                val img = BufferedImage(selectablePanel.width, selectablePanel.height, BufferedImage.TYPE_INT_RGB)
+                val img = BufferedImage(fracPanel.width, fracPanel.height, BufferedImage.TYPE_INT_RGB)
                 val imgGr = img.createGraphics()
-                selectablePanel.paint(imgGr)
-                keyFramesPanel.addKeyFramePanel(img, fractalPainter.plane)
+                fracPanel.paint(imgGr)
+                keyFramesPanel.addKeyFramePanel(img, painter.plane)
             }
         })
 
@@ -83,7 +132,7 @@ class AnimationFrame(private val selectablePanel: SelectablePanel, private val f
             setHorizontalGroup(
                 createSequentialGroup()
                     .addGap(4)
-                    .addComponent(selectablePanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                    .addComponent(fracPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                     .addComponent(ctrlPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.PREFERRED_SIZE)
                     .addGap(4)
             )
@@ -91,7 +140,7 @@ class AnimationFrame(private val selectablePanel: SelectablePanel, private val f
                 createSequentialGroup()
                     .addGap(4)
                     .addGroup(createParallelGroup()
-                        .addComponent(selectablePanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
+                        .addComponent(fracPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE)
                         .addComponent(ctrlPanel, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE)
                     )
                     .addGap(4)
