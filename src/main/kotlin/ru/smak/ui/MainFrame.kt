@@ -14,11 +14,14 @@ import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import javax.swing.*
 import java.awt.event.*
+import java.io.File
+import java.io.IOException
+import javax.imageio.ImageIO
 import kotlin.random.Random
 
 class MainFrame : JFrame() {
 
-    val fractalPanel: SelectablePanel
+    var fractalPanel: SelectablePanel
     var frame: JFrame //= null
     var frame2: JFrame
     val menu: JMenu
@@ -103,7 +106,10 @@ class MainFrame : JFrame() {
 
         SourceAreaMenu.addActionListener{
             it?.let {
-
+                with (painter.plane) {
+                    xSegment = Pair(-2.0, 1.0)
+                    ySegment = Pair(-1.0, 1.0)
+                }
             }
             repaint()
         }
@@ -121,20 +127,46 @@ class MainFrame : JFrame() {
             it?.let {
 
             }
-            repaint()
+          repaint()
         }
 
-        imageMenu.addActionListener{
-            it?.let {
+        imageMenu.addActionListener {
+        val fileChs = JFileChooser()
+        fileChs.dialogTitle = "Choose place to save image"
+        fileChs.fileSelectionMode = JFileChooser.FILES_ONLY
+        val res = fileChs.showSaveDialog(this@MainFrame)
+        if (res == JFileChooser.APPROVE_OPTION) {
+            val im = painter.image
+            val outputFile = File(fileChs.selectedFile.path + ".jpg")
+            try {
+                ImageIO.write(im, "jpg", outputFile)
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+        }
+    }
+
+
+        ColorSitem1Menu.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
 
             }
-            repaint()
-        }
+        })
+        ColorSitem2Menu.addMouseListener(object: MouseAdapter(){
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
 
+            }
+        })
+        ColorSitem3Menu.addMouseListener(object: MouseAdapter() {
+            override fun mouseClicked(e: MouseEvent?) {
+                super.mouseClicked(e)
+            }
+        })
         ColorSitem1Menu.addActionListener{
             it?.let {
                 painter.colorFunction = colorizers[0]
-
             }
             repaint()
         }
@@ -217,6 +249,8 @@ class MainFrame : JFrame() {
                     mand.isDynamic(DynamicMenu.isSelected)
                     xSegment = Pair(xMin, xMax)
                     ySegment = Pair(yMin, yMax)
+
+                    stat.add(Pair(Pair(xMin,xMax),Pair(yMin,yMax)))
                 }
                 repaint()
             }
@@ -241,7 +275,6 @@ class MainFrame : JFrame() {
                 SecondFrame(painter.colorFunction).apply {
                     Julia.t = org.kotlinmath.DefaultComplex(painter.plane.xScr2Crt(e!!.x), painter.plane.yScr2Crt(e.y))
                     isVisible = true
-
                 }
             }
             })
