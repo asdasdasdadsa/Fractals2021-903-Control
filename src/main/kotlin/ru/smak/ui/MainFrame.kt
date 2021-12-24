@@ -8,16 +8,12 @@ import ru.smak.ui.painting.fractals.FractalPainter
 import ru.smak.ui.painting.fractals.colorizers
 import java.awt.Color
 import java.awt.Dimension
-import java.awt.Rectangle
 import java.awt.event.KeyEvent
 import java.awt.event.KeyListener
-import java.awt.SystemColor.window
 import java.awt.event.MouseAdapter
 import java.awt.event.MouseEvent
 import javax.swing.*
 import java.awt.event.*
-import javax.swing.*
-import javax.swing.*
 import kotlin.random.Random
 
 class MainFrame : JFrame() {
@@ -40,7 +36,6 @@ class MainFrame : JFrame() {
             mand,
             CartesianPlane(-2.0, 1.0, -1.0, 1.0),
             colorizers[Random.nextInt(colorizers.size)])
-
         with(painter.plane){
             prop = (xMax - xMin) / (yMax - yMin)
         }
@@ -139,6 +134,7 @@ class MainFrame : JFrame() {
         ColorSitem1Menu.addActionListener{
             it?.let {
                 painter.colorFunction = colorizers[0]
+
             }
             repaint()
         }
@@ -242,9 +238,10 @@ class MainFrame : JFrame() {
         fractalPanel.addMouseListener(object: MouseAdapter(){
             override fun mouseClicked(e: MouseEvent?) {
                 super.mouseClicked(e)
-                SecondFrame().apply {
+                SecondFrame(painter.colorFunction).apply {
                     Julia.t = org.kotlinmath.DefaultComplex(painter.plane.xScr2Crt(e!!.x), painter.plane.yScr2Crt(e.y))
                     isVisible = true
+
                 }
             }
             })
@@ -272,7 +269,7 @@ class MainFrame : JFrame() {
             override fun keyTyped(e: KeyEvent?) {
 
             }
-//ю
+
             override fun keyPressed(e: KeyEvent?) {
             }
 
