@@ -6,6 +6,7 @@
     <groupId>ru.smak</groupId>
     <artifactId>Fractals2021-903</artifactId>
     <version>1.0-SNAPSHOT</version>
+
     <packaging>jar</packaging>
 
     <name>ru.smak Fractals2021-903</name>
@@ -17,7 +18,38 @@
         <junit.version>4.12</junit.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>dcm4che repository</id>
+            <url>http://www.dcm4che.org/maven2/</url>
+        </repository>
+    </repositories>
     <dependencies>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.2.8</version>
+        </dependency>
+        <dependency>
+            <groupId>xuggle</groupId>
+            <artifactId>xuggle-xuggler</artifactId>
+            <version>5.4</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jcodec</groupId>
+            <artifactId>jcodec</artifactId>
+            <version>0.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jcodec</groupId>
+            <artifactId>jcodec-javase</artifactId>
+            <version>0.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>io.humble</groupId>
+            <artifactId>humble-video-all</artifactId>
+            <version>0.3.0</version>
+        </dependency>
         <dependency>
             <groupId>org.kotlinmath</groupId>
             <artifactId>complex-numbers</artifactId>
