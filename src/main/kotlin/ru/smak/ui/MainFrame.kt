@@ -8,15 +8,13 @@ import ru.smak.ui.painting.fractals.FractalPainter
 import ru.smak.ui.painting.fractals.colorizers
 import java.awt.Color
 import java.awt.Dimension
-import java.awt.event.KeyEvent
-import java.awt.event.KeyListener
-import java.awt.event.MouseAdapter
-import java.awt.event.MouseEvent
-import javax.swing.*
 import java.awt.event.*
 import java.io.File
 import java.io.IOException
+import java.util.regex.Pattern
 import javax.imageio.ImageIO
+import javax.swing.*
+import javax.swing.filechooser.FileNameExtensionFilter
 import kotlin.random.Random
 
 class MainFrame : JFrame() {
@@ -26,6 +24,7 @@ class MainFrame : JFrame() {
     var frame2: JFrame
     val menu: JMenu
     val menuBar: JMenuBar
+
 
     val stat = mutableListOf(Pair(Pair(-2.0,1.0),Pair(-1.0,1.0)) )
 
@@ -134,10 +133,20 @@ class MainFrame : JFrame() {
         val fileChs = JFileChooser()
         fileChs.dialogTitle = "Choose place to save image"
         fileChs.fileSelectionMode = JFileChooser.FILES_ONLY
+            val filter = FileNameExtensionFilter ("Images(*.jpg)", "jpg" )
+            fileChs.fileFilter = filter
         val res = fileChs.showSaveDialog(this@MainFrame)
         if (res == JFileChooser.APPROVE_OPTION) {
             val im = painter.image
-            val outputFile = File(fileChs.selectedFile.path + ".jpg")
+            val outputFile : File
+            val path = fileChs.selectedFile.path
+            val regex = ".*.jpg*";
+            val isMatched = Pattern.matches(regex, path)
+            outputFile = if (isMatched){
+                File(fileChs.selectedFile.path)
+            } else{
+                File(fileChs.selectedFile.path+".jpg")
+            }
             try {
                 ImageIO.write(im, "jpg", outputFile)
             } catch (e: IOException) {
